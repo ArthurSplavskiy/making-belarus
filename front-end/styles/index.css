@@ -1,0 +1,400 @@
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.dg.ac {
+  z-index: 99999 !important;
+}
+
+.preloader {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.preloader {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.dg.ac {
+  z-index: 99999 !important;
+}
+
+.preloader__number {
+  font-size: 1.4rem;
+}
+
+body {
+  font-size: 1.6rem;
+  font-weight: 300;
+  letter-spacing: 0.03rem;
+  line-height: 1.5;
+}
+
+.preloader__text {
+  font-family: "Ricordi";
+  font-size: 5.3rem;
+}
+
+._container {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  margin: 0 auto;
+  max-width: 168.8rem;
+  width: 100%;
+  padding: 0 4.4rem;
+}
+
+@font-face {
+  font-family: "Ricordi";
+  src: url("../../fonts/ricordi-regular.woff2") format("woff2"), url("../../fonts/ricordi-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Manrope";
+  src: url("../../fonts/manrope-regular.woff2") format("woff2"), url("../../fonts/manrope-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+html {
+  font-size: calc(100vw / 1920 * 10);
+}
+
+body {
+  font-family: "Manrope";
+  height: 100vh;
+}
+
+a {
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+}
+
+.preloader {
+  background: #c97164;
+  color: #fff;
+  text-align: center;
+}
+
+.preloader__text {
+  max-width: 66rem;
+}
+
+.preloader__number {
+  position: absolute;
+  bottom: 7.3rem;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.noise {
+  -webkit-animation: noise 1.2s steps(3) infinite both;
+          animation: noise 1.2s steps(3) infinite both;
+  background: url("../images/noise.png");
+  height: 200%;
+  left: -50%;
+  pointer-events: none;
+  position: fixed;
+  top: -50%;
+  width: 200%;
+  will-change: auto;
+  z-index: 99998;
+  opacity: .1;
+}
+
+@-webkit-keyframes noise {
+  0% {
+    -webkit-transform: translate3d(1%, -1%, 0);
+            transform: translate3d(1%, -1%, 0);
+  }
+
+  10% {
+    -webkit-transform: translate3d(-5%, -2%, 0);
+            transform: translate3d(-5%, -2%, 0);
+  }
+
+  20% {
+    -webkit-transform: translate3d(10%, 5%, 0);
+            transform: translate3d(10%, 5%, 0);
+  }
+
+  30% {
+    -webkit-transform: translate3d(5%, -11%, 0);
+            transform: translate3d(5%, -11%, 0);
+  }
+
+  40% {
+    -webkit-transform: translate3d(-12%, -5%, 0);
+            transform: translate3d(-12%, -5%, 0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(10%, 9%, 0);
+            transform: translate3d(10%, 9%, 0);
+  }
+
+  60% {
+    -webkit-transform: translate3d(15%, 0, 0);
+            transform: translate3d(15%, 0, 0);
+  }
+
+  70% {
+    -webkit-transform: translate3d(-10%, 8%, 0);
+            transform: translate3d(-10%, 8%, 0);
+  }
+
+  80% {
+    -webkit-transform: translate3d(10%, 2%, 0);
+            transform: translate3d(10%, 2%, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(1%, 5%, 0);
+            transform: translate3d(1%, 5%, 0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 8%, 0);
+            transform: translate3d(0, 8%, 0);
+  }
+}
+
+@keyframes noise {
+  0% {
+    -webkit-transform: translate3d(1%, -1%, 0);
+            transform: translate3d(1%, -1%, 0);
+  }
+
+  10% {
+    -webkit-transform: translate3d(-5%, -2%, 0);
+            transform: translate3d(-5%, -2%, 0);
+  }
+
+  20% {
+    -webkit-transform: translate3d(10%, 5%, 0);
+            transform: translate3d(10%, 5%, 0);
+  }
+
+  30% {
+    -webkit-transform: translate3d(5%, -11%, 0);
+            transform: translate3d(5%, -11%, 0);
+  }
+
+  40% {
+    -webkit-transform: translate3d(-12%, -5%, 0);
+            transform: translate3d(-12%, -5%, 0);
+  }
+
+  50% {
+    -webkit-transform: translate3d(10%, 9%, 0);
+            transform: translate3d(10%, 9%, 0);
+  }
+
+  60% {
+    -webkit-transform: translate3d(15%, 0, 0);
+            transform: translate3d(15%, 0, 0);
+  }
+
+  70% {
+    -webkit-transform: translate3d(-10%, 8%, 0);
+            transform: translate3d(-10%, 8%, 0);
+  }
+
+  80% {
+    -webkit-transform: translate3d(10%, 2%, 0);
+            transform: translate3d(10%, 2%, 0);
+  }
+
+  90% {
+    -webkit-transform: translate3d(1%, 5%, 0);
+            transform: translate3d(1%, 5%, 0);
+  }
+
+  100% {
+    -webkit-transform: translate3d(0, 8%, 0);
+            transform: translate3d(0, 8%, 0);
+  }
+}
+
+@media (max-width: 1280px) {
+  ._container {
+    max-width: 111.2rem;
+  }
+
+  html {
+    font-size: calc(100vw / 1280 * 10);
+  }
+}
+
+@media (max-width: 768px) {
+  ._container {
+    max-width: 68rem;
+  }
+
+  html {
+    font-size: calc(100vw / 768 * 10);
+  }
+}
+
+@media (max-width: 320px) {
+  ._container {
+    padding: 0 1.6rem;
+    max-width: 28.8rem;
+  }
+
+  html {
+    font-size: calc(100vw / 320 * 10);
+  }
+}
+/*# sourceMappingURL=index.css.map */
