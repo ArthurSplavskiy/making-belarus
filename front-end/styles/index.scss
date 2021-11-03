@@ -8,8 +8,11 @@
 
 @import './shared/description';
 @import './shared/titles';
+@import './shared/classes';
 
 @import './base/fonts';
 @import './base/base';
 
 @import './components/preloader';
+
+@import './layout/noise.scss';

@@ -2,12 +2,13 @@
 
 @import './utils/variables';
 @import './utils/vendors';
+@import './utils/extends';
+@import './utils/functions';
 @import './utils/mixins';
-@import './utils/vendors';
 @import './utils/responsive';
 
-@import './shared/description';
-@import './shared/titles';
+@import './shared/ricordi-text';
+@import './shared/manrope-text';
 @import './shared/classes';
 
 @import './base/fonts';
@@ -16,3 +17,4 @@
 @import './components/preloader';
 
 @import './layout/noise.scss';
+@import './layout/header.scss';

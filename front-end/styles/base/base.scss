@@ -1,20 +1,21 @@
-*,
-*:after,
-*:before {
-  box-sizing: border-box;
-}
-
 html {
   font-size: calc(100vw / 1920 * 10);
-  // @include media('<phone') {
-  // }
+  @include media('<=laptop') {
+    font-size: calc(100vw / 1280 * 10);
+  }
+  @include media('<=tablet') {
+    font-size: calc(100vw / 768 * 10);
+  }
+  @include media('<=phone') {
+    font-size: calc(100vw / 320 * 10);
+  }
 }
 
 body {
   @extend %description-16;
 
   font-family: $manrope-font;
-  background-color: red;
+  height: 100vh;
 }
 
 a {
