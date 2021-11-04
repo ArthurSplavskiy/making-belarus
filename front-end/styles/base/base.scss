@@ -7,15 +7,12 @@ html {
     font-size: calc(100vw / 768 * 10);
   }
   @include media('<=phone') {
-    font-size: calc(100vw / 320 * 10);
+    font-size: calc(100vw / 375 * 10);
   }
 }
 
 body {
-  @extend %description-16;
-
   font-family: $manrope-font;
-  height: 100vh;
 }
 
 a {

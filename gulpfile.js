@@ -29,13 +29,13 @@ let path = {
 		fonts: project_name + "/fonts/"
 	},
 	src: {
-		favicon: src_folder + "/images/favicon.{jpg,png,svg,gif,ico,webp}",
+		favicon: src_folder + "/images/favicon.{jpg,jpeg,png,svg,gif,ico,webp}",
 		tpl: [src_folder + "/tpl/_*.html"],
 		html: [src_folder + "/*.html", "!" + src_folder + "/_*.html"],
 		js: [src_folder + "/js/app.js", src_folder + "/js/vendors.js"],
 		scss: src_folder + "/styles/**/*.scss",
 		styles: src_folder + "/styles/index.scss",
-		images: [src_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}", "!**/favicon.*"],
+		images: [src_folder + "/images/**/*.{jpg,jpeg,png,svg,gif,ico,webp}", "!**/favicon.*"],
 		others: [src_folder + "/others/**/*.{json,mp4,mp3,webm,xml}"],
 		fonts: src_folder + "/fonts/*.{woff,woff2}"
 	},
@@ -43,7 +43,7 @@ let path = {
 		html: src_folder + "/**/*.html",
 		js: src_folder + "/**/*.js",
 		styles: src_folder + "/styles/**/*.scss",
-		images: src_folder + "/images/**/*.{jpg,png,svg,gif,ico,webp}",
+		images: src_folder + "/images/**/*.{jpg,jpeg,png,svg,gif,ico,webp}",
 		others: src_folder + "/others/**/*.{json,mp4,mp3,webm,xml}"
 	},
 	clean: "./" + project_name + "/"

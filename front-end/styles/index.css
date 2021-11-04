@@ -151,6 +151,7 @@ table {
 
 .preloader__slide,
 .preloader__calendar,
+.preloader__button,
 .timer__item-title,
 .timer__item-date {
   display: -webkit-box;
@@ -164,11 +165,26 @@ table {
           align-items: center;
 }
 
+.preloader__button {
+  font-family: "Ricordi";
+  font-size: 1.6rem;
+  font-weight: 400;
+  line-height: 2.224rem;
+}
+
 .logo {
   font-family: "Ricordi";
   font-size: 2rem;
   font-weight: 400;
   line-height: 2.4rem;
+}
+
+.preloader__title {
+  font-family: "Ricordi";
+  font-size: 6.2rem;
+  font-weight: 400;
+  line-height: 8.06rem;
+  letter-spacing: 0.02rem;
 }
 
 .timer__item:first-child .timer__item-date:after,
@@ -262,10 +278,47 @@ a {
 
 .preloader__slide {
   height: 100%;
+  opacity: 0;
 }
 
-.preloader__slide:nth-child(1) {
-  opacity: 0;
+.preloader__slide._active {
+  opacity: 1;
+  -webkit-transition: opacity 3s cubic-bezier(0.19, 1, 0.22, 1);
+  -o-transition: opacity 3s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.preloader__slide._active:not(:last-child) {
+  -webkit-animation: animationEnd 3s cubic-bezier(0.19, 1, 0.22, 1) forwards 2.5s;
+          animation: animationEnd 3s cubic-bezier(0.19, 1, 0.22, 1) forwards 2.5s;
+}
+
+@-webkit-keyframes animationEnd {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes animationEnd {
+  to {
+    opacity: 0;
+  }
+}
+
+.preloader__slide:nth-child(3) .preloader__slide-content ._container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0;
+  margin: 0;
+  width: 100%;
 }
 
 .preloader__calendar {
@@ -276,6 +329,55 @@ a {
 .preloader__calendar img {
   max-width: 100%;
   max-height: 100%;
+}
+
+.preloader__title {
+  max-width: 92rem;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 7.2rem;
+  overflow: hidden;
+}
+
+.preloader__title div {
+  overflow: hidden;
+}
+
+.preloader__button {
+  width: 20.5rem;
+  height: 8rem;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6.1rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.preloader__button span {
+  position: relative;
+}
+
+.preloader__button:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: url("../../images/button.jpeg"), -webkit-gradient(linear, left bottom, left top, from(rgba(0, 0, 0, 0.6)), to(rgba(0, 0, 0, 0.6))), url("../../images/button.jpeg"), #FFFFFF;
+  background: url("../../images/button.jpeg"), -o-linear-gradient(bottom, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../../images/button.jpeg"), #FFFFFF;
+  background: url("../../images/button.jpeg"), linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../../images/button.jpeg"), #FFFFFF;
+  background-size: cover;
+  background-position: 70% 90%;
+  -webkit-filter: brightness(0.4);
+          filter: brightness(0.4);
 }
 
 .timer {
@@ -342,6 +444,10 @@ a {
 .timer__item-date {
   position: relative;
   color: #fff;
+}
+
+.timer__item-date span {
+  overflow: hidden;
 }
 
 .noise {
@@ -577,8 +683,18 @@ a {
 }
 
 @media (min-width: 1920px) {
+  .preloader__button {
+    font-size: 1.8rem;
+    line-height: 2.48rem;
+  }
+
   .logo {
     font-size: 2.8rem;
+  }
+
+  .preloader__title {
+    font-size: 9.6rem;
+    line-height: 12.48rem;
   }
 
   .timer__item:first-child .timer__item-date:after,
@@ -591,6 +707,10 @@ a {
   .preloader__calendar {
     width: 86.8rem;
     height: 86.8rem;
+  }
+
+  .preloader__title {
+    max-width: 140rem;
   }
 
   .timer {
@@ -622,6 +742,11 @@ a {
 @media (max-width: 768px) {
   .logo {
     font-size: 2.4rem;
+  }
+
+  .preloader__title {
+    font-size: 4.8rem;
+    line-height: 6.24rem;
   }
 
   ._container {
@@ -695,6 +820,11 @@ a {
     font-size: 1.6rem;
   }
 
+  .preloader__title {
+    font-size: 2.8rem;
+    line-height: 3.64rem;
+  }
+
   .timer__item:first-child .timer__item-date:after,
   .timer__item:nth-child(2) .timer__item-date:after,
   .timer__item-date {
@@ -716,6 +846,10 @@ a {
   }
 
   .preloader__calendar {
+    width: 100%;
+  }
+
+  .preloader__button {
     width: 100%;
   }
 

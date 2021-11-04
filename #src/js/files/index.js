@@ -1,2 +1,11 @@
-console.log('start')
-// 25 августа 1991
+class App {
+    constructor() {
+        this.init()
+    }
+
+    init() {
+        new Preloader()
+    }
+}
+
+new App()
