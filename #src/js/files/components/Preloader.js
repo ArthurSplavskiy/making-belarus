@@ -1,20 +1,26 @@
 class Preloader {
-    constructor() {
+    constructor () {
         this.element = document.querySelector('.preloader')
+        this.elementBg = this.element.querySelector('.preloader__bg')
+        this.preloaderCover = document.querySelector('.preloader-cover')
+
+        this.split = new Split()
+        this.animation = new Animation()
+
+        // last
         this.init()
     }
 
-    init() {
+    init () {
         
         this.slider()
         this.timer()
-        this.splitText()
         this.close()
     }
 
-    slider() {
-        const slider = this.element.querySelector('.preloader__slider')
-        const slides = slider.querySelectorAll('.preloader__slide')
+    slider () {
+        this.sliderEl = this.element.querySelector('.preloader__slider')
+        const slides = this.sliderEl.querySelectorAll('.preloader__slide')
         const delay = 4000
         const steps = slides.length
         let round = 0
@@ -38,18 +44,21 @@ class Preloader {
             }
 
             if(round === 1) {
-                this.animationIn(this.splitDateText.chars)
+                this.animation.animationTextIn(this.splitDateText.chars)
             }
             if(round === 2) {
-                this.animationIn(this.lines.lines)
+                gsap.fromTo(this.closeTitleLines.words, {
+                    y: '100%'
+                }, {
+                    y: '10%'
+                })
             }
         }
 
         let interval = setInterval(slideChange, delay)
     }
 
-    timer() {
-        // 30 03 21
+    timer () {
         const timer = this.element.querySelector('.timer')
         const timerYearField = timer.querySelector('[data-independence-year] span')
         const timerMonthField = timer.querySelector('[data-independence-month] span')
@@ -64,9 +73,21 @@ class Preloader {
         const independenceMonth = 7
         const independenceDay = 25
 
-        const outYear = Math.abs(nowDateYear - independenceYear)
-        const outMonth = Math.abs(nowDateMonth - independenceMonth)
-        const outDay = Math.abs(nowDateDay - independenceDay)
+        let outYear
+        let outDay
+        let outMonth
+
+        if(nowDateMonth < independenceMonth) {
+            outYear = Math.abs((nowDateYear - independenceYear) - 1)
+        } else {
+            outYear = Math.abs(nowDateYear - independenceYear)
+        }
+        if(nowDateDay < independenceDay) {
+            outMonth = Math.abs((nowDateMonth - independenceMonth) - 1)
+            outDay = Math.abs(nowDateDay + 6)
+        } else {
+            outDay = Math.abs(nowDateDay - independenceDay)
+        }
 
         const setZero = (num) => {
             return num < 10 ? `0${num}` : num
@@ -77,59 +98,45 @@ class Preloader {
         timerDayField.innerHTML = setZero(outDay)
 
         const splitArray = [timerYearField, timerMonthField, timerDayField]
-        this.splitDateText = this.splitText(splitArray)
+        this.splitDateText = this.split.splitText(splitArray)
     }
 
-    close() {
+    close () {
         const closeSlide = this.element.querySelector('.preloader__slide:last-child')
         const closeTitle = closeSlide.querySelector('.preloader__title')
         const closeButton = closeSlide.querySelector('.preloader__button')
 
-        this.lines = this.splitTextLines(closeTitle)
+        this.closeTitleLines = this.split.splitText(closeTitle, "lines,words")
 
-        const del = this.splitTextLines(closeTitle)
+        gsap.set(this.element, { transformOrigin: '100% 100%' })
+
+        this.timelineClose = gsap.timeline(this.element)
 
         const clickHandler = () => {
-            gsap.to(this.element, {
-                delay: 0.3,
-                duration: 1,
-                y: '100%',
-                autoAlpha: 0,
-                //onComplete: this.element.remove()
+            const opacityItems = [this.elementBg, this.sliderEl]
+            gsap.fromTo(opacityItems, {
+                autoAlpha: '1'
+            }, {
+                autoAlpha: '0'
             })
-            this.animationOut(this.lines.lines)
+
+            gsap.fromTo(this.closeTitleLines.words, {
+                y: '0%'
+            }, {
+                duration: 1,
+                ease: Power1.easeOut,
+                y: '100%'
+            })
+
+            this.timelineClose.to(this.element, {
+                scaleY: '0'
+            }, '+=0.7')
+
+            this.timelineClose.call(_ => {
+                this.element.remove()
+            })
         }
 
         closeButton.onclick = clickHandler
-    }
-
-    splitText(text) {
-        return new SplitText(text, { type: "words,chars" })
-    }
-
-    splitTextLines(text) {
-        return new SplitText(text, { type: "lines" })
-    }
-
-    animationIn(text) {
-        gsap.fromTo(text, {
-            y: '100%'
-        }, {
-            duration: 1,
-            ease: Power1.easeOut,
-            stagger: 0.09,
-            y: '0%'
-        })
-    }
-
-    animationOut(text) {
-        gsap.fromTo(text, {
-            y: '0%'
-        }, {
-            duration: 1,
-            ease: Power1.easeOut,
-            stagger: 0.09,
-            y: '100%'
-        })
     }
 }

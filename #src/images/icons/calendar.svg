@@ -1,45 +1,5 @@
-<svg width="824" height="869" viewBox="0 0 824 869" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg class="circle-calendar" width="824" height="869" viewBox="0 0 824 869" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_459:2691)">
-
-<style>
-.first-circle {
-    transform-origin: 50% 50%;
-    animation-name: leftRotate;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(1,.01,.51,.75);
-    animation-fill-mode: forwards;
-}
-.second-circle {
-    transform-origin: 50% 50%;
-    animation-name: rightRotate;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(1,.01,.51,.75);
-    animation-fill-mode: forwards;
-}
-.third-circle {
-    transform-origin: 50% 50%;
-    animation-name: leftRotate;
-    animation-duration: 2s;
-    animation-timing-function: cubic-bezier(1,.01,.51,.75);
-    animation-fill-mode: forwards;
-}
-@keyframes leftRotate {
-    from {
-        transform: rotate(30deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-@keyframes rightRotate {
-    from {
-        transform: rotate(-30deg);
-    }
-    to {
-        transform: rotate(-360deg);
-    }
-}
-</style>
 
 <path d="M823.395 435.272C823.395 662.438 639.184 846.592 411.948 846.592C184.711 846.592 0.5 662.438 0.5 435.272C0.5 208.106 184.711 23.951 411.948 23.951C639.184 23.951 823.395 208.106 823.395 435.272Z" fill="url(#pattern0)"/>
 <path d="M823.395 435.272C823.395 662.438 639.184 846.592 411.948 846.592C184.711 846.592 0.5 662.438 0.5 435.272C0.5 208.106 184.711 23.951 411.948 23.951C639.184 23.951 823.395 208.106 823.395 435.272Z" fill="black" fill-opacity="0.6"/>
