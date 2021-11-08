@@ -55,6 +55,49 @@ class Animation {
 
 }
 
+class Cursor {
+    constructor() {
+        this.element = document.querySelector('.c-cursor')
+        this.cursorSlider = this.element.querySelector('.c-cursor__slider')
+
+        this.cursorContainer = document.querySelector('.page-menu .swiper-wrapper')
+
+        this.init()
+    }
+
+    initCursor (e) {
+        let x = e.clientX;
+        let y = e.clientY;
+        this.element.style.left = x + 'px';
+        this.element.style.top = y + 'px';
+
+        if(this.element.classList.contains('above-slider')) {
+            if(x < (window.innerWidth / 2)) {
+                if(this.cursorSlider.classList.contains('right')) {
+                    this.cursorSlider.classList.remove('right')
+                }
+            } else {
+                if(!this.cursorSlider.classList.contains('right')) {
+                    this.cursorSlider.classList.add('right')
+                }
+            }
+        }
+    }
+
+    setCursorSwiper () {
+        this.element.classList.add('above-slider')
+    }
+
+    removeCursorSwiper () {
+        this.element.classList.remove('above-slider')
+    }
+
+    init () {
+        document.addEventListener('mousemove', this.initCursor.bind(this));
+        this.cursorContainer.addEventListener('mouseenter', this.setCursorSwiper.bind(this));
+        this.cursorContainer.addEventListener('mouseleave', this.removeCursorSwiper.bind(this));
+    }
+}
 class Header {
     constructor () {
         this.element = document.querySelector('.header')
@@ -66,6 +109,7 @@ class Header {
 
     init () {
         this.menu()
+        this.menuSlider()
     }
 
     menuOpen(event) {
@@ -79,7 +123,13 @@ class Header {
             this.menuTimeline.to(this.pageMenu, {
                 y: '0'
             })
+
+            this.menuTimeline.call(_ => {
+                this.element.classList.add('menu-open')
+            })
         } else { // menu close
+            this.element.classList.remove('menu-open')
+            
             this.menuTimeline.to(this.pageMenu, {
                 y: '-100%'
             })
@@ -93,6 +143,47 @@ class Header {
         gsap.set(this.pageMenu, { y: '-100%' })
 
         this.burger.onclick = event => this.menuOpen(event)
+    }
+
+    menuSlider () {
+        this.menuSlider = this.element.querySelector('.swiper')
+
+        const swiper = new Swiper('.swiper', {
+            init: true,
+            slidesPerView: 4,
+            spaceBetween: 40,
+            grabCursor: true,
+
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev'
+            },
+
+            scrollbar: {
+              el: '.swiper-scrollbar',
+              draggable: true
+            },
+
+            breakpoints: {
+                320: {
+                  slidesPerView: 3,
+                  spaceBetween: 20
+                },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 40
+                }
+            }
+        })
+
+        swiper.on('resize', () => {
+            if(window.innerWidth <= 520) {
+                swiper.disable()
+            } else {
+                swiper.enable()
+            }
+        })
+        
     }
 }
 class Preloader {
@@ -164,7 +255,7 @@ class Preloader {
         const nowDate = new Date()
         const nowDateYear = nowDate.getFullYear()
         const nowDateMonth = nowDate.getMonth()
-        const nowDateDay = nowDate.getDay()
+        const nowDateDay = nowDate.getUTCDate()
 
         const independenceYear = 1991
         const independenceMonth = 7
@@ -248,6 +339,7 @@ class App {
         this.header = new Header()
         this.preloader = new Preloader()
         this.animation = new Animation()
+        this.cursor = new Cursor()
     }
 
     pageLoad () {

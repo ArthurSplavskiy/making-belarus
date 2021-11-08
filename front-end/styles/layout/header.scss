@@ -46,7 +46,7 @@
 }
 
 .logo {
-    @extend %ricordi-20;
+    @extend %ramillas-20;
 
     color: #fff;
     text-transform: uppercase;
@@ -60,6 +60,19 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: relative;
+
+    &._active {
+        div:first-child {
+            opacity: 0;
+        }
+        div:nth-child(2) {
+            opacity: 1;
+        }
+        div:last-child {
+            opacity: 0;
+        }
+    }
 
     @include media('<=tablet') {
         width: 4.8rem;
@@ -75,6 +88,7 @@
     }
 
     div {
+        transition: opacity 0.8s $easy-out-expo;
         width: 5.6rem;
         background: $color-white;
 
@@ -84,6 +98,9 @@
 
             &:first-child {
                 margin-bottom: 6px;
+            }
+            &:nth-child(2) {
+                height: 2px;
             }
             &:last-child {
                 height: 2px;
@@ -99,6 +116,12 @@
             margin-bottom: 5px;
             height: 1px;
         }
+        &:nth-child(2) {
+            @extend %absolute-center;
+
+            height: 3px;
+            opacity: 0;
+        }
         &:last-child {
             height: 3px;
         }
@@ -106,15 +129,22 @@
 }
 
 .lang-toggle {
-    border-left: 3px solid $color-white;
+    border-left: 2px solid $color-white;
     padding-left: .6rem;
     display: flex;
+
+    &:hover {
+        .lang-toggle__item:not(._active) {
+            opacity: 0.4;
+        }
+    }
 
     &__item {
         @extend %manrope-14;
 
+        transition: opacity 1s $easy-out-expo;
+        opacity: 0;
         color: $color-white;
-        opacity: 0.4;
 
         &._active {
             opacity: 1;

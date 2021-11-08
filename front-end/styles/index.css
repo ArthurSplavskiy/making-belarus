@@ -141,7 +141,8 @@ table {
 
 .preloader,
 .preloader__slider,
-.preloader__slide {
+.preloader__slide,
+.page-menu__card-bg {
   height: 100%;
   left: 0;
   position: absolute;
@@ -153,7 +154,8 @@ table {
 .preloader__calendar,
 .preloader__button,
 .timer__item-title,
-.timer__item-date {
+.timer__item-date,
+.page-menu__card-index {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -165,7 +167,9 @@ table {
           align-items: center;
 }
 
-.burger div:nth-child(2) {
+.burger div:nth-child(2),
+.page-menu__card-bg-wrap,
+.page-menu__card-title {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -174,22 +178,75 @@ table {
           transform: translate(-50%, -50%);
 }
 
+.page-menu__slider {
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  z-index: 1;
+}
+
+.swiper-pointer-events.page-menu__slider {
+  -ms-touch-action: pan-y;
+      touch-action: pan-y;
+}
+
+.page-menu__slider .swiper-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  -o-transition-property: transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+}
+
+.page-menu__slider .swiper-slide {
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  -o-transition-property: transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+}
+
 .preloader__button {
-  font-family: "Ricordi";
+  font-family: "Ramillas";
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 2.224rem;
 }
 
 .logo {
-  font-family: "Ricordi";
+  font-family: "Ramillas";
   font-size: 2rem;
   font-weight: 400;
   line-height: 2.4rem;
 }
 
+.page-menu__card-title {
+  font-family: "Ramillas";
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 3.12rem;
+  letter-spacing: 0.02rem;
+}
+
 .preloader__title {
-  font-family: "Ricordi";
+  font-family: "Ramillas";
   font-size: 6.2rem;
   font-weight: 400;
   line-height: 8.06rem;
@@ -199,7 +256,7 @@ table {
 .timer__item:first-child .timer__item-date:after,
 .timer__item:nth-child(2) .timer__item-date:after,
 .timer__item-date {
-  font-family: "Ricordi";
+  font-family: "Ramillas";
   font-size: 12.4rem;
   font-weight: 400;
   line-height: 12.4rem;
@@ -212,7 +269,8 @@ table {
   line-height: 1.92rem;
 }
 
-.lang-toggle__item {
+.lang-toggle__item,
+.page-menu__card-index {
   font-family: "Manrope";
   font-size: 1.4rem;
   font-weight: 400;
@@ -229,8 +287,8 @@ table {
 }
 
 @font-face {
-  font-family: "Ricordi";
-  src: url("../../fonts/ricordi-regular.woff2") format("woff2"), url("../../fonts/ricordi-regular.woff") format("woff");
+  font-family: "Ramillas";
+  src: url("../../fonts/ramillas-regular.woff2") format("woff2"), url("../../fonts/ramillas-regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -250,6 +308,8 @@ html {
 
 body {
   font-family: "Manrope";
+  cursor: none;
+  background: #9F1307;
 }
 
 a {
@@ -577,6 +637,56 @@ a {
   }
 }
 
+.c-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.c-cursor * {
+  pointer-events: none;
+}
+
+.c-cursor .page-cursor {
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+      -ms-transform: translate(-50%, -50%) rotate(45deg);
+          transform: translate(-50%, -50%) rotate(45deg);
+  width: 14.4px;
+  height: 14.4px;
+  background: rgba(159, 19, 7, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.c-cursor__slider {
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: none;
+}
+
+.c-cursor__slider .arrow {
+  -webkit-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+}
+
+.c-cursor__slider.right .arrow {
+  -webkit-transform: rotate(-180deg);
+      -ms-transform: rotate(-180deg);
+          transform: rotate(-180deg);
+}
+
+.c-cursor.above-slider .page-cursor {
+  -webkit-transform: scale(0);
+      -ms-transform: scale(0);
+          transform: scale(0);
+}
+
+.c-cursor.above-slider .c-cursor__slider {
+  display: block;
+}
+
 .noise {
   -webkit-animation: noise 1.2s steps(3) infinite both;
           animation: noise 1.2s steps(3) infinite both;
@@ -832,6 +942,105 @@ a {
   z-index: 2;
 }
 
+.page-menu__wrapper {
+  height: 100%;
+  padding: 14.4rem 0;
+}
+
+.page-menu__wrapper ._container {
+  height: 100%;
+  width: auto;
+}
+
+.page-menu__slider {
+  overflow: visible;
+  width: 100%;
+  min-width: 0;
+  color: #fff;
+}
+
+.page-menu__slider-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 4rem;
+}
+
+.page-menu__slider-controls .swiper-button-prev.swiper-button-disabled svg,
+.page-menu__slider-controls .swiper-button-next.swiper-button-disabled svg {
+  fill: #fff;
+}
+
+.page-menu__slider-controls .swiper-button-next {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.page-menu__slider-controls .swiper-scrollbar {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0 2.4rem;
+}
+
+.page-menu__slider-controls .swiper-scrollbar div {
+  background: #fff;
+  height: 5px;
+}
+
+.page-menu__card {
+  position: relative;
+  width: 100%;
+  height: 35.5rem;
+  background: #161616;
+  padding: 1.6rem;
+  cursor: pointer;
+}
+
+.page-menu__card-bg {
+  overflow: hidden;
+}
+
+.page-menu__card-bg-wrap {
+  width: 100%;
+}
+
+.page-menu__card-bg-wrap .img-top,
+.page-menu__card-bg-wrap .img-bottom {
+  max-width: 100%;
+}
+
+.page-menu__card-bg-wrap .img-top svg,
+.page-menu__card-bg-wrap .img-bottom svg {
+  -webkit-transition: -webkit-transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: -webkit-transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  -o-transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1), -webkit-transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.page-menu__card-bg-wrap .img-top path,
+.page-menu__card-bg-wrap .img-bottom path {
+  -webkit-transition: fill 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  -o-transition: fill 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: fill 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.page-menu__card-content {
+  position: relative;
+  height: 100%;
+  z-index: 2;
+}
+
+.page-menu__card-title {
+  width: 100%;
+  text-align: center;
+}
+
 @media (min-width: 769px) {
   .preloader__bg {
     width: 100%;
@@ -844,6 +1053,12 @@ a {
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
+  }
+}
+
+@media (min-width: 1281px) {
+  .page-menu__card {
+    height: 42.5rem;
   }
 }
 
@@ -891,6 +1106,12 @@ a {
   .preloader__calendar {
     width: 76.8rem;
     height: 76.8rem;
+  }
+}
+
+@media (min-width: 1921px) {
+  .page-menu__card {
+    height: 50.5rem;
   }
 }
 
@@ -944,6 +1165,36 @@ a {
     height: 71.4rem;
   }
 
+  .header.menu-open .header__lang {
+    display: block;
+    -webkit-animation: fadeIn 2s cubic-bezier(0.19, 1, 0.22, 1);
+            animation: fadeIn 2s cubic-bezier(0.19, 1, 0.22, 1);
+  }
+
+@-webkit-keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+}
+
+  .header.menu-open .header__logo {
+    display: none;
+  }
+
   .header {
     height: 6.8rem;
   }
@@ -975,6 +1226,10 @@ a {
   .burger div:last-child {
     height: 2px;
   }
+
+  .lang-toggle__item {
+    opacity: 0.4;
+  }
 }
 
 @media (max-width: 768px) and (max-height: 850px) {
@@ -993,13 +1248,56 @@ a {
 
 @media (max-width: 520px) {
   html {
-    font-size: calc(100vw / 580 * 10);
+    font-size: calc(100vw / 740 * 10);
+  }
+
+  .c-cursor.above-slider .c-cursor__slider {
+    display: none;
+  }
+
+  .header.menu-open {
+    background: #000;
+  }
+
+  .page-menu {
+    overflow-y: auto;
+  }
+
+  .page-menu__wrapper {
+    height: auto;
+    overflow-y: auto;
+    padding: 8rem 0 6rem 0;
+  }
+
+  .page-menu__slider .swiper-wrapper {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+  }
+
+  .page-menu__slider .swiper-wrapper .swiper-slide {
+    min-width: 100%;
+  }
+
+  .page-menu__slider-controls {
+    display: none;
+  }
+
+  .page-menu__card {
+    height: 40.2rem;
   }
 }
 
 @media (max-width: 375px) {
   .logo {
     font-size: 1.6rem;
+  }
+
+  .page-menu__card-title {
+    font-size: 1.6rem;
+    line-height: 2.08rem;
   }
 
   .preloader__title {
@@ -1084,6 +1382,10 @@ a {
   .burger div:first-child {
     margin-bottom: 3px;
   }
+
+  .page-menu__card {
+    height: 22.2rem;
+  }
 }
 
 @media (min-width: 769px) and (max-width: 1919px) and (max-height: 700px) {
@@ -1097,6 +1399,31 @@ a {
   .preloader__calendar {
     width: 30.8rem;
     height: 30.8rem;
+  }
+}
+
+@media (any-hover: none) {
+  .c-cursor {
+    display: none;
+  }
+}
+
+@media (any-hover: hover) {
+  .page-menu__card:hover .img-top path,
+  .page-menu__card:hover .img-bottom path {
+    fill: #9F1307;
+  }
+
+  .page-menu__card:hover .img-top svg {
+    -webkit-transform: scale(0.1) rotate(180deg);
+        -ms-transform: scale(0.1) rotate(180deg);
+            transform: scale(0.1) rotate(180deg);
+  }
+
+  .page-menu__card:hover .img-bottom svg {
+    -webkit-transform: scale(0.1) rotate(-180deg);
+        -ms-transform: scale(0.1) rotate(-180deg);
+            transform: scale(0.1) rotate(-180deg);
   }
 }
 /*# sourceMappingURL=index.css.map */
