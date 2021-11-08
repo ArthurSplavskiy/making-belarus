@@ -8,6 +8,7 @@ class App {
         this.header = new Header()
         this.preloader = new Preloader()
         this.animation = new Animation()
+        this.cursor = new Cursor()
     }
 
     pageLoad () {

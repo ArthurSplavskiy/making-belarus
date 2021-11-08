@@ -1,6 +1,7 @@
 @@include('files/classes/Split.js', {})
 @@include('files/classes/Animation.js', {})
 
+@@include('files/components/Cursor.js', {})
 @@include('files/components/Header.js', {})
 @@include('files/components/Preloader.js', {})
 

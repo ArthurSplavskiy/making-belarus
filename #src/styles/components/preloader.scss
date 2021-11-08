@@ -116,6 +116,7 @@
 
     width: 56.2rem;
     height: 56.2rem;
+    
     @include media('>tablet', '<desktop') {
       @media(max-height: 700px) {
         width: 40.8rem;
@@ -160,7 +161,7 @@
   }
 
   &__title {
-    @extend %ricordi-62;
+    @extend %ramillas-62;
 
     max-width: 92rem;
     text-align: center;
@@ -181,7 +182,7 @@
     }
   }
   &__button {
-    @extend %ricordi-16;
+    @extend %ramillas-16;
     @extend %center;
 
     width: 20.5rem;
@@ -257,7 +258,7 @@
       }
       .timer__item-date {
         &:after {
-          @extend %ricordi-124;
+          @extend %ramillas-124;
 
           content: ':';
           color: $color-white;
@@ -276,7 +277,7 @@
       }
       .timer__item-date {
         &:after {
-          @extend %ricordi-124;
+          @extend %ramillas-124;
 
           content: ':';
           color: $color-white;
@@ -315,7 +316,7 @@
     }
     &-date {
       @extend %center;
-      @extend %ricordi-124;
+      @extend %ramillas-124;
 
       position: relative;
       color: $color-white;

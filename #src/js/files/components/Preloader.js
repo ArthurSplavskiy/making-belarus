@@ -67,7 +67,7 @@ class Preloader {
         const nowDate = new Date()
         const nowDateYear = nowDate.getFullYear()
         const nowDateMonth = nowDate.getMonth()
-        const nowDateDay = nowDate.getDay()
+        const nowDateDay = nowDate.getUTCDate()
 
         const independenceYear = 1991
         const independenceMonth = 7

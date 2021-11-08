@@ -1,5 +1,5 @@
-%ricordi-16 {
-  font-family: $ricordi-font;
+%ramillas-16 {
+  font-family: $ramillas-font;
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 2.224rem;
@@ -10,8 +10,8 @@
   }
 }
 
-%ricordi-20 {
-  font-family: $ricordi-font;
+%ramillas-20 {
+  font-family: $ramillas-font;
   font-size: 2rem;
   font-weight: 400;
   line-height: 2.4rem;
@@ -27,8 +27,21 @@
   }
 }
 
-%ricordi-62 {
-  font-family: $ricordi-font;
+%ramillas-24 {
+  font-family: $ramillas-font;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 3.12rem;
+  letter-spacing: 0.02rem;
+  
+  @include media('<=phone') {
+    font-size: 1.6rem;
+    line-height: 2.08rem;
+  }
+}
+
+%ramillas-62 {
+  font-family: $ramillas-font;
   font-size: 6.2rem;
   font-weight: 400;
   line-height: 8.06rem;
@@ -48,8 +61,8 @@
   }
 }
 
-%ricordi-124 {
-  font-family: $ricordi-font;
+%ramillas-124 {
+  font-family: $ramillas-font;
   font-size: 12.4rem;
   font-weight: 400;
   line-height: 12.4rem;
