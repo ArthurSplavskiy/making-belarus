@@ -1,5 +1,4 @@
 html {
-  overflow: hidden;
   font-size: 10px;
   @include media('>=desktop') {
     font-size: calc(100vw / 1920 * 10);

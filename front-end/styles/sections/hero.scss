@@ -46,12 +46,12 @@
         &__map {
            position: absolute;
            top: 50%;
-           left: 40%;
+           left: 50%;
            transform: translate(-50%, -50%);
 
-           .map-svg {
-               opacity: 0;
-           }
+        //    .map-svg {
+        //        opacity: 0;
+        //    }
         }
 
         &__line {

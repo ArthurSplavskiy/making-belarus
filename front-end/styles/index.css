@@ -1169,10 +1169,6 @@ a {
   max-width: 34.4rem;
 }
 
-.preloader {
-  display: none;
-}
-
 @media (min-width: 769px) {
   .preloader__bg {
     width: 100%;
