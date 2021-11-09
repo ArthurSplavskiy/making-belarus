@@ -3,6 +3,7 @@ $color-black:#000;
 $color-redbg: #9F1307;
 $color-grey: #161616;
 $color-grey-2: #1B1B1B;
+$color-redtext:#BC271A;
 
 $ramillas-font: 'Ramillas';
 $manrope-font: 'Manrope';
@@ -14,5 +15,7 @@ $z-indexes: (
   'header',
   'noise',
   'page-menu',
+  'preloader',
+  'scroll-indicator',
   'page'
 );

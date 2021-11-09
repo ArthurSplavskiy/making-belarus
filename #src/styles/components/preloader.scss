@@ -3,6 +3,7 @@
 
   overflow: hidden;
   background: $color-redbg;
+  z-index: z('preloader');
 
   &__wrapper {
     width: 100%;
@@ -11,8 +12,6 @@
     ._container {
       width: auto;
       height: 100%;
-      position: relative;
-      z-index: 2;
     }
   }
 
