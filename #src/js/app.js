@@ -1,6 +1,5 @@
 
 @@include('files/utils/svg-inline.js', {})
-@@include('files/utils/custom-vh.js', {})
 
 @@include('files/classes/Split.js', {})
 @@include('files/classes/Animation.js', {})

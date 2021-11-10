@@ -29,9 +29,6 @@ class App {
     }
 
     onResize () {
-        //CUSTOM VH
-        vh()
-        //
     }
 
     addEventListeners () {
