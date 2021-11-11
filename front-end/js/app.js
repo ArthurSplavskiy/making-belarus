@@ -390,8 +390,6 @@ class HeroSection {
         this.heroComposition = this.element.querySelector('.hero-composition')
 
         this.timelineSection = document.querySelector('.timeline-section')
-        this.timelineSectionWrapper = document.querySelector('.timeline-section__wrapper')
-        this.timelineSectionScroll = document.querySelector('.timeline-section .scroll-container')
 
         this.heroFirstLines = this.heroComposition.querySelectorAll('.hero-composition__title')
         this.heroFirstDescriptions = this.heroComposition.querySelectorAll('.hero-composition__description')
@@ -457,31 +455,50 @@ class HeroSection {
             y: - (window.innerHeight)
         })
 
-        // this.timeline.fromTo(this.timelineSection, {
-        //     filter: 'brightness(0)'
-        // }, {
-        //     filter: 'brightness(1)'
-        // }, '<')
-        //end: () => "+=" + (this.timelineSectionScroll.offsetWidth + 1000),
+        this.timeline.fromTo(this.timelineSection, {
+            filter: 'brightness(0)'
+        }, {
+            filter: 'brightness(1)'
+        }, '<')
 
-        //console.log(((window.innerWidth * 100) / this.timelineSectionScroll.offsetWidth))
-        // d = 100
-        // w = 
+    }
+}
+class TimelineSection {
+    constructor () {
+        this.element = document.querySelector('.timeline-section')
+        this.elementWrapper = this.element.querySelector('.timeline-section__wrapper')
+        this.elementScroll = this.element.querySelector('.scroll-container')
 
-        //console.log(innerWidth)
+        this.init()
+    }
 
-        gsap.to(this.timelineSectionScroll, {
-            xPercent: -99.9,
-            //ease: 'none',
-            scrollTrigger: {
-                trigger: this.timelineSectionWrapper,
-                start: "+=8000",
-                //end: "+=7000",
-                pin: true,
-                scrub: 1,
-                markers: true
-            }
+    init () {
+        this.scroll()
+    }
+
+    scroll () {
+        this.scrollTimeline = gsap.timeline({ defaults: {ease: 'none'} })
+
+        ScrollTrigger.create({
+            trigger: this.elementWrapper,
+            animation: this.scrollTimeline,
+
+            start: "+=8000",
+            end: '20000px 100%',
+
+            markers: true,
+            scrub: 1,
+        });
+        
+        this.scrollTimeline.fromTo(this.elementScroll, {
+            x: 0,
+        }, {
+            x: - (this.elementScroll.scrollWidth - window.innerWidth),
         })
+        
+        // this.scrollTimeline.call(_ => {
+        //     console.log('end')
+        // })
 
     }
 }
@@ -500,6 +517,7 @@ class App {
 
         // SECTIONS
         this.heroSection = new HeroSection()
+        this.timelineSection = new TimelineSection()
     }
 
     pageLoad () {

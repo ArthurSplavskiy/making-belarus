@@ -4,8 +4,6 @@ class HeroSection {
         this.heroComposition = this.element.querySelector('.hero-composition')
 
         this.timelineSection = document.querySelector('.timeline-section')
-        this.timelineSectionWrapper = document.querySelector('.timeline-section__wrapper')
-        this.timelineSectionScroll = document.querySelector('.timeline-section .scroll-container')
 
         this.heroFirstLines = this.heroComposition.querySelectorAll('.hero-composition__title')
         this.heroFirstDescriptions = this.heroComposition.querySelectorAll('.hero-composition__description')
@@ -71,31 +69,11 @@ class HeroSection {
             y: - (window.innerHeight)
         })
 
-        // this.timeline.fromTo(this.timelineSection, {
-        //     filter: 'brightness(0)'
-        // }, {
-        //     filter: 'brightness(1)'
-        // }, '<')
-        //end: () => "+=" + (this.timelineSectionScroll.offsetWidth + 1000),
-
-        //console.log(((window.innerWidth * 100) / this.timelineSectionScroll.offsetWidth))
-        // d = 100
-        // w = 
-
-        //console.log(innerWidth)
-
-        gsap.to(this.timelineSectionScroll, {
-            xPercent: -99.9,
-            //ease: 'none',
-            scrollTrigger: {
-                trigger: this.timelineSectionWrapper,
-                start: "+=8000",
-                //end: "+=7000",
-                pin: true,
-                scrub: 1,
-                markers: true
-            }
-        })
+        this.timeline.fromTo(this.timelineSection, {
+            filter: 'brightness(0)'
+        }, {
+            filter: 'brightness(1)'
+        }, '<')
 
     }
 }

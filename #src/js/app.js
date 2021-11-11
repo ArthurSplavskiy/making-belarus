@@ -9,5 +9,6 @@
 @@include('files/components/Preloader.js', {})
 
 @@include('files/sections/Hero.js', {})
+@@include('files/sections/Timeline.js', {})
 
 @@include('files/index.js', {})
