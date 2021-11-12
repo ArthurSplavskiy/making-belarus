@@ -53,13 +53,48 @@ function svgInline(){
 }
 //svgInline();
 
+class Observer {
+    constructor (element, animationIn, animationOut) {
+        this.element = element
+        this.animationIn = animationIn
+        this.animationOut = animationOut
+
+        this.createObserver()
+    }
+
+    createObserver () {
+        this.options = {
+            threshold: 0.9
+        }
+
+        this.observer = new window.IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.animationIn(entry.target)
+                } else {
+                    this.animationOut(entry.target)
+                }
+            })
+        }, this.options)
+
+        if(this.element instanceof NodeList) {
+            this.element.forEach(el => {
+                this.observer.observe(el)
+            })
+        } else {
+            this.observer.observe(this.element)
+        }
+        
+    }
+    
+}
 class Split {
     constructor () {
         this.splitText = this.splitText
     }
 
-    splitText (text, type = 'words,chars') {
-        return new SplitText(text, { type: type })
+    splitText (text, options = {}) {
+        return new SplitText(text, options)
     }
 }
 class Animation {
@@ -349,7 +384,7 @@ class Preloader {
         const closeTitle = closeSlide.querySelector('.preloader__title')
         const closeButton = closeSlide.querySelector('.preloader__button')
 
-        this.closeTitleLines = this.split.splitText(closeTitle, "lines,words")
+        this.closeTitleLines = this.split.splitText(closeTitle, { type: "lines,words" })
 
         gsap.set(this.element, { transformOrigin: '100% 100%' })
 
@@ -416,8 +451,6 @@ class HeroSection {
             scrub: 1,
         });
 
-        
-
         this.timeline.fromTo(this.heroFirstDescriptions, {
             autoAlpha: 1
         }, {
@@ -461,6 +494,18 @@ class HeroSection {
             filter: 'brightness(1)'
         }, '<')
 
+        this.pinSpacer = this.element.parentElement
+        let pinSpacerZindex = this.pinSpacer.style.zIndex
+
+        this.timeline.to('.pin-spacer', {
+            duration: 0,
+            zIndex: pinSpacerZindex
+        })
+
+        this.timeline.call(_ => {
+            this.pinSpacer.style.zIndex = -1;
+        })
+
     }
 }
 class TimelineSection {
@@ -468,39 +513,125 @@ class TimelineSection {
         this.element = document.querySelector('.timeline-section')
         this.elementWrapper = this.element.querySelector('.timeline-section__wrapper')
         this.elementScroll = this.element.querySelector('.scroll-container')
+        this.elementScrollBg = this.element.querySelector('.scroll-container__bg')
+        this.images = this.element.querySelectorAll('.parallax-item__img')
+        this.text = this.element.querySelectorAll('.parallax-item_text p')
+        
+        this.split = new Split()
 
         this.init()
     }
 
     init () {
         this.scroll()
+        this.Animation()
+        this.textSplit()
     }
 
     scroll () {
-        this.scrollTimeline = gsap.timeline({ defaults: {ease: 'none'} })
 
-        ScrollTrigger.create({
-            trigger: this.elementWrapper,
-            animation: this.scrollTimeline,
+        ScrollTrigger.matchMedia({
 
-            start: "+=8000",
-            end: '20000px 100%',
+            "(min-width: 768px)": function() {
+                const timeline = gsap.timeline({ defaults: {ease: 'none'} })
+                const scrollWrapper = document.querySelector('.timeline-section__wrapper')
+                const scrollContainer = document.querySelector('.scroll-container')
+                const scrollContainerBG = document.querySelector('.scroll-container__bg')
 
-            markers: true,
-            scrub: 1,
-        });
+                ScrollTrigger.create({
+                    trigger: scrollWrapper,
+                    animation: timeline,
         
-        this.scrollTimeline.fromTo(this.elementScroll, {
-            x: 0,
-        }, {
-            x: - (this.elementScroll.scrollWidth - window.innerWidth),
+                    start: "+=8000",
+                    end: '20000px 100%',
+        
+                    markers: true,
+                    scrub: 1,
+                });
+                
+                timeline.fromTo(scrollContainer, {
+                    x: 0,
+                }, {
+                    x: - (scrollContainer.scrollWidth - window.innerWidth),
+                })
+        
+                timeline.fromTo(scrollContainerBG, {
+                    xPercent: 0,
+                    ease: Power3.easeIn,
+                }, {
+                    xPercent: 20,
+                }, '<')
+            }
+
         })
+       
         
-        // this.scrollTimeline.call(_ => {
+        // tim.call(_ => {
         //     console.log('end')
         // })
 
     }
+
+    Animation () {
+        this.observer = new Observer(this.images, this.imageAnimationIn, this.imageAnimationOut)
+        this.observerText = new Observer(this.text, this.textAnimationIn, this.textAnimationOut)
+    }
+
+    imageAnimationIn (el) {
+        if(!el.classList.contains('_reveal')) {
+            el.classList.add('_reveal')
+        }
+    }
+
+    imageAnimationOut (el) {
+        el.classList.remove('_reveal')
+    }
+
+    textSplit () {
+    
+        const animationLines = this.split.splitText(this.text, {
+            type: "lines",
+            linesClass: "split-child"
+        });
+        this.split.splitText(this.text, {
+            linesClass: "split-parent"
+        });
+
+        // stagger
+        this.text.forEach((textBox, index) => {
+            const list = textBox.querySelectorAll('.split-parent')
+
+            list.forEach((el, idx) => {
+                const listChilds = el.querySelectorAll('.split-child')
+
+                listChilds.forEach(line => {
+                    if(idx > 0) {
+                        let animationTime = idx
+
+                        if(animationTime < 10) {
+                            line.style.transitionDelay = `0.${animationTime}s`
+                        } else {
+                            line.style.transitionDelay = `${animationTime}s`
+                        }
+                        //console.log(animationTime)
+                    }
+                })
+
+            })
+        })
+
+    }
+
+    textAnimationIn (el) {
+        if(!el.classList.contains('is-view')) {
+            el.classList.add('is-view')
+        }
+    }
+
+    textAnimationOut (el) {
+        el.classList.remove('is-view')
+    }
+
 }
 
 class App {

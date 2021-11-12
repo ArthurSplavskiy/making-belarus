@@ -3,7 +3,7 @@ class Split {
         this.splitText = this.splitText
     }
 
-    splitText (text, type = 'words,chars') {
-        return new SplitText(text, { type: type })
+    splitText (text, options = {}) {
+        return new SplitText(text, options)
     }
 }

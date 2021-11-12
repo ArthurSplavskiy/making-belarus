@@ -30,8 +30,6 @@ class HeroSection {
             scrub: 1,
         });
 
-        
-
         this.timeline.fromTo(this.heroFirstDescriptions, {
             autoAlpha: 1
         }, {
@@ -74,6 +72,18 @@ class HeroSection {
         }, {
             filter: 'brightness(1)'
         }, '<')
+
+        this.pinSpacer = this.element.parentElement
+        let pinSpacerZindex = this.pinSpacer.style.zIndex
+
+        this.timeline.to('.pin-spacer', {
+            duration: 0,
+            zIndex: pinSpacerZindex
+        })
+
+        this.timeline.call(_ => {
+            this.pinSpacer.style.zIndex = -1;
+        })
 
     }
 }

@@ -106,7 +106,7 @@ class Preloader {
         const closeTitle = closeSlide.querySelector('.preloader__title')
         const closeButton = closeSlide.querySelector('.preloader__button')
 
-        this.closeTitleLines = this.split.splitText(closeTitle, "lines,words")
+        this.closeTitleLines = this.split.splitText(closeTitle, { type: "lines,words" })
 
         gsap.set(this.element, { transformOrigin: '100% 100%' })
 

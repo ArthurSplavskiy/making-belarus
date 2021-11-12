@@ -2,26 +2,245 @@
     color: $color-white;
     height: 100vh;
     width: 100%;
-    background: grey;
     position: fixed;
     top: 0;
     left: 0;
     z-index: z('timeline-section');
 
     &__wrapper {
-        width: 100vw;
         height: 100vh;
         position: relative;
-        display: flex;
-        flex-wrap: wrap;
-        flex-direction: column;
     }
 
     .scroll-container {
-        background: tomato;
-        font-size: 12rem;
-        //white-space: nowrap;
+        background: $color-redbg;
         height: 100vh;
-        width: 50vw;
+        position: relative;
+        width: auto;
+
+        &__bg {
+            @extend %ramillas-124;
+
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            left: calc((100vw - 168.8rem) / 2);
+            padding-right: calc((100vw - 168.8rem) / 2);
+            transform: translate(0, -50%);
+
+            @media(max-width: 1780px) {
+                left: 4.4rem;
+                padding-right: 4.4rem;
+            }
+
+            @include media('<=laptop') {
+                left: calc((100vw - 111.2rem) / 2);
+                padding-right: calc((100vw - 111.2rem) / 2);
+            }
+            @include media('<=tablet') {
+                left: calc((100vw - 68rem) / 2);
+                padding-right: calc((100vw - 68rem) / 2);
+            }
+            @include media('<=phone') {
+                left: calc((100vw - 32px) / 2);
+                padding-right: calc((100vw - 32px) / 2);
+            }
+
+            span {
+                font-size: 50rem;
+                line-height: 100%;
+                color: rgba($color-black, 0.07);
+                &:not(:last-child) {
+                    margin-right: 50rem;
+                }
+
+                @include media('>desktop') {
+                    font-size: 80rem;
+                }
+            }
+        }
+
+        &__content {
+            display: flex;
+            width: 100%;
+
+            padding-left: calc((100vw - 168.8rem) / 2);
+
+            @media(max-width: 1780px) {
+                padding-left: 4.4rem;
+            }
+
+            @include media('<=laptop') {
+                padding-left: calc((100vw - 111.2rem) / 2);
+            }
+            @include media('<=tablet') {
+                padding-left: calc((100vw - 68rem) / 2);
+            }
+            @include media('<=phone') {
+                padding-left: calc((100vw - 32px) / 2);
+            }
+        }
+
+        &__item {
+            height: 100vh;
+
+            &.remove-offset {
+                margin-right: 4rem;
+            }
+            &:not(.remove-offset) {
+                margin-right: 13.6rem;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        .parallax-item {
+
+            &__wrapper {
+                width: 100%;
+                height: 100%;
+
+                &.center {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                }
+                &.bottom {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                }
+            }
+            
+            &:not(.parallax-item_img-cover) {
+                padding-top: 11.2rem;
+                padding-bottom: 4rem;
+            }
+
+            &_img-cover {
+                flex-shrink: 0;
+                width: 92rem;
+                height: 100vh;
+                position: relative;
+
+                img {
+                    @extend %cover;
+                    object-fit: cover;
+                }
+
+                &:last-child {
+                    width: 100vw;
+                }
+            }
+
+            &_img-item {
+                position: relative;
+            }
+
+            &__img {
+                width: 34.4rem;
+                height: 24.8rem;
+                position: relative;
+                overflow: hidden;
+
+                // animation
+                clip-path: inset(0% 100% 0% 0%);
+                transition: clip-path 1s $easy-out-expo;
+                
+                &._reveal {
+                    clip-path: inset(0% 0% 0% 0%);
+                    
+                    img {
+                        transform: scale(1);
+                    }
+                }
+                
+
+                &_small {
+                    width: 24.8rem;
+                    height: 24.8rem;
+                }
+
+                img {
+                    @extend %cover;
+
+                    object-fit: cover;
+                    will-change: transform;
+                    transform: scale(1.2);
+                    transition: transform 2s $easy-out-expo;
+                }
+            }
+
+            &__img-text {
+                @extend %ramillas-14;
+
+                position: absolute;
+                left: -2.4rem;
+                z-index: 2;
+
+                span {
+                    position: relative;
+                    display: block;
+                    width: 2.2rem;
+                    height: 6px;
+                    margin-left: 0.5rem;
+                    margin-bottom: 1.2rem;
+
+                    &:before, &:after {
+                        content: '';
+                        width: 6px;
+                        height: 6px;
+                        background: #fff;
+                        position: absolute;
+                        top: 0;
+                        border-radius: 100%;
+                    }
+                    &:before {
+                        left: 0;
+                    }
+                    &:after {
+                        right: 0;
+                    }
+                }
+
+                &_top {
+                    top: -1.7rem;
+
+                    display: flex;
+                    flex-direction: column-reverse;
+
+                    span {
+                        margin-top: 1.2rem;
+                        margin-bottom: 0;
+                    }
+                }
+                &_bottom {
+                    bottom: -1.7rem;
+                }
+            }
+
+            &_text {
+                flex-shrink: 0;
+                max-width: 53.6rem;
+
+                .parallax-item__wrapper {
+                    padding-bottom: 5.2rem
+                }
+
+                p {
+                    @extend %manrope-24;
+
+                    &:first-child {
+                        text-indent: 6.8rem;
+                    }
+                    &:not(:last-child) {
+                        margin-bottom: 2.4rem;
+                    }
+                }
+            }
+
+        }
+
     }
 }
