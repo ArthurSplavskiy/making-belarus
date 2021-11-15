@@ -26,6 +26,6 @@
 @import './sections/timeline.scss';
 @import './sections/history.scss';
 
-.preloader {
+.preloader, .hero-section, .timeline-section {
     display: none;
 }

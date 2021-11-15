@@ -11,5 +11,6 @@
 
 @@include('files/sections/Hero.js', {})
 @@include('files/sections/Timeline.js', {})
+@@include('files/sections/History.js', {})
 
 @@include('files/index.js', {})

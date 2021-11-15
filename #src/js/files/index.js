@@ -13,6 +13,7 @@ class App {
         // SECTIONS
         this.heroSection = new HeroSection()
         this.timelineSection = new TimelineSection()
+        this.historySection = new HistorySection()
     }
 
     pageLoad () {

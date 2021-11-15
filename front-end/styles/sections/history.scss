@@ -1,7 +1,6 @@
 .history-section {
     color: $color-white;
     height: 100vh;
-    overflow: hidden;
     width: 100%;
     position: fixed;
     top: 0;
@@ -42,7 +41,7 @@
             .line {
                 //transition: all 5s ease;
                 //transform-origin: 100% 100%;
-                //transform: translate(20%, 0);
+                transform: translate(20%, 0);
             }
             
         }
@@ -50,7 +49,7 @@
 
             .line {
                 //transition: transform 5s ease;
-                //transform: translate(-20%, 0);
+                transform: translate(-20%, 0);
             }
         }
         &:not(:last-child) {
@@ -111,7 +110,7 @@
     .move-bg {
         width: 100vw;
         height: 100vh;
-        //transition: transform 4s ease;
+        transition: transform 4s ease;
         position: relative;
 
         // defaut after lines 100vh;

@@ -1447,6 +1447,7 @@ a {
 .history-section {
   color: #fff;
   height: 100vh;
+  overflow: hidden;
   width: 100%;
   position: fixed;
   top: 0;
@@ -1480,18 +1481,6 @@ a {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-}
-
-.history-section .line-container:nth-child(odd) .line {
-  -webkit-transform: translate(20%, 0);
-      -ms-transform: translate(20%, 0);
-          transform: translate(20%, 0);
-}
-
-.history-section .line-container:nth-child(even) .line {
-  -webkit-transform: translate(-20%, 0);
-      -ms-transform: translate(-20%, 0);
-          transform: translate(-20%, 0);
 }
 
 .history-section .line-container:not(:last-child) {
@@ -1539,11 +1528,6 @@ a {
 .history-section .move-bg {
   width: 100vw;
   height: 100vh;
-  -webkit-transition: -webkit-transform 4s ease;
-  transition: -webkit-transform 4s ease;
-  -o-transition: transform 4s ease;
-  transition: transform 4s ease;
-  transition: transform 4s ease, -webkit-transform 4s ease;
   position: relative;
 }
 
@@ -1584,7 +1568,9 @@ a {
   text-indent: 6.2rem;
 }
 
-.preloader {
+.preloader,
+.hero-section,
+.timeline-section {
   display: none;
 }
 
