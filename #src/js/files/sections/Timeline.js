@@ -15,15 +15,16 @@ class TimelineSection {
     init () {
         this.scroll()
         this.Animation()
-        this.textSplit()
+        //this.textSplit()
     }
 
     scroll () {
 
         ScrollTrigger.matchMedia({
 
-            "(min-width: 768px)": function() {
+            "(min-width: 769px)": function() {
                 const timeline = gsap.timeline({ defaults: {ease: 'none'} })
+                const rootElement = document.querySelector('.timeline-section')
                 const scrollWrapper = document.querySelector('.timeline-section__wrapper')
                 const scrollContainer = document.querySelector('.scroll-container')
                 const scrollContainerBG = document.querySelector('.scroll-container__bg')
@@ -33,7 +34,7 @@ class TimelineSection {
                     animation: timeline,
         
                     start: "+=8000",
-                    end: '20000px 100%',
+                    end: '30000px 100%',
         
                     markers: true,
                     scrub: 1,
@@ -51,6 +52,11 @@ class TimelineSection {
                 }, {
                     xPercent: 20,
                 }, '<')
+
+                timeline.to(rootElement, {
+                    yPercent: -100
+                })
+
             }
 
         })

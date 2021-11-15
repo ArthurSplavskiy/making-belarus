@@ -9,7 +9,7 @@ class Observer {
 
     createObserver () {
         this.options = {
-            threshold: 0.9
+            //threshold: 0.9
         }
 
         this.observer = new window.IntersectionObserver(entries => {
