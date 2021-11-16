@@ -22,6 +22,25 @@ class TimelineSection {
 
         ScrollTrigger.matchMedia({
 
+            "(max-width: 768px)": function() {
+                const timeline = gsap.timeline({ defaults: {ease: 'none'} })
+                const rootElement = document.querySelector('.timeline-section')
+
+                ScrollTrigger.create({
+                    trigger: rootElement,
+                    animation: timeline,
+                    start: "+=8000",
+                    end: '30000px 100%',
+                    pin: true, // add
+                    scrub: 1,
+                });
+
+                timeline.to(rootElement, {
+                    duration: 0.1,
+                    y: - (rootElement.scrollHeight + 100)
+                })
+            },
+
             "(min-width: 769px)": function() {
                 const timeline = gsap.timeline({ defaults: {ease: 'none'} })
                 const rootElement = document.querySelector('.timeline-section')
@@ -29,15 +48,15 @@ class TimelineSection {
                 const scrollContainer = document.querySelector('.scroll-container')
                 const scrollContainerBG = document.querySelector('.scroll-container__bg')
 
+                const historySection = document.querySelector('.history-section')
+
                 ScrollTrigger.create({
-                    trigger: scrollWrapper,
+                    trigger: rootElement,
                     animation: timeline,
-        
                     start: "+=8000",
                     end: '30000px 100%',
-        
-                    markers: true,
-                    scrub: 1,
+                    pin: true, // add
+                    scrub: 1
                 });
                 
                 timeline.fromTo(scrollContainer, {
@@ -54,8 +73,17 @@ class TimelineSection {
                 }, '<')
 
                 timeline.to(rootElement, {
+                    duration: 0.1,
                     yPercent: -100
                 })
+
+                timeline.fromTo(historySection, {
+                    duration: 0.05,
+                    filter: 'brightness(0)'
+                }, {
+                    duration: 0.05,
+                    filter: 'brightness(1)'
+                }, '<')
 
             }
 

@@ -22,12 +22,10 @@ class HeroSection {
         ScrollTrigger.create({
             trigger: this.element,
             animation: this.timeline,
-
             start: "top top",
             end: '+=8000',
-
             pin: true,
-            scrub: 1,
+            scrub: 1
         });
 
         this.timeline.fromTo(this.heroFirstDescriptions, {
@@ -64,6 +62,7 @@ class HeroSection {
         }, '=-1.5')
 
         this.timeline.to(this.element, {
+            duration: 2,
             y: - (window.innerHeight)
         })
 

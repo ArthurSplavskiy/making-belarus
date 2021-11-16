@@ -7,6 +7,7 @@
     left: 0;
     z-index: z('timeline-section');
     background: $color-redbg;
+    top: 0!important;//add
 
     @include media('<=tablet') {
         -webkit-overflow-scrolling: touch;
@@ -313,6 +314,9 @@
                 flex-shrink: 0;
                 max-width: 53.6rem;
 
+                @include media('>=desktop') {
+                    max-width: 82.2rem;
+                }
                 @include media('<=tablet') {
                     max-width: 100%;
                 }
