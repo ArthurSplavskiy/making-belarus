@@ -53,7 +53,7 @@ class TimelineSection {
                 ScrollTrigger.create({
                     trigger: rootElement,
                     animation: timeline,
-                    start: "+=8000",
+                    start: self => self.previous().end,//"+=8000",
                     end: '30000px 100%',
                     pin: true, // add
                     scrub: 1

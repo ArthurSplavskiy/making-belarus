@@ -14,6 +14,8 @@ class App {
         this.heroSection = new HeroSection()
         this.timelineSection = new TimelineSection()
         this.historySection = new HistorySection()
+        this.incidentSection = new IncidentSection()
+        this.blogSection = new BlogSection()
     }
 
     pageLoad () {

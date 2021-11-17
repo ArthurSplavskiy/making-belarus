@@ -28,7 +28,7 @@ class HistorySection {
             trigger: this.element,
             animation: this.timeline,
 
-            start: "+=29500", // 26100
+            start: self => self.previous().end, //"+=29500", // 26100 
             end: '50000px 100%',
             pin: true,
 
@@ -110,6 +110,20 @@ class HistorySection {
             duration: 3,
             yPercent: -100
         })
+
+        /*
+            z-index
+        */
+        this.pinSpacer = this.element.parentElement
+        let pinSpacerZindex = this.pinSpacer.style.zIndex
+        this.timeline.to(this.pinSpacer, {
+            duration: 0,
+            zIndex: pinSpacerZindex
+        })
+        this.timeline.call(_ => {
+            this.pinSpacer.style.zIndex = -1;
+        })
+        //
 
     }
 }
