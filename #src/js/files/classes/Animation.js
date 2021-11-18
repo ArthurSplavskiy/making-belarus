@@ -2,29 +2,35 @@ class Animation {
     constructor () {
         this.animationTextIn = this.animationTextIn
         this.animationTextOut = this.animationTextOut
+        // this.fadeIn = this.fadeIn
+        // this.fadeOut = this.fadeOut
     }
 
     animationTextIn (text) {
 
         gsap.fromTo(text, {
-            y: '100%'
+            y: '100%',
+            opacity: 0
         }, {
             duration: 1,
             ease: Power1.easeOut,
             stagger: 0.09,
-            y: '0%'
+            y: '0%',
+            opacity: 1
         })
     }
 
     animationTextOut (text) {
 
         gsap.fromTo(text, {
-            y: '0%'
+            y: '0%',
+            opacity: 1
         }, {
             duration: 1,
             ease: Power1.easeOut,
             stagger: 0.09,
-            y: '100%'
+            y: '100%',
+            opacity: 0
         })
     }
 

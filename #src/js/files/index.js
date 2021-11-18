@@ -5,12 +5,17 @@ class App {
     }
 
     init () {
+        /*
+          * Components
+        */
         this.header = new Header()
         this.preloader = new Preloader()
         this.animation = new Animation()
         this.cursor = new Cursor()
 
-        // SECTIONS
+        /*
+          * Sections
+        */
         this.heroSection = new HeroSection()
         this.timelineSection = new TimelineSection()
         this.historySection = new HistorySection()
@@ -19,8 +24,10 @@ class App {
     }
 
     pageLoad () {
-        
-        // preloader cover
+
+        /*
+          * Preloader cover
+        */
         const preloaderCoverTimeline = gsap.timeline()
         preloaderCoverTimeline.fromTo(this.preloader.preloaderCover, { autoAlpha: 1 }, { autoAlpha: 0 })
         preloaderCoverTimeline.call(_ => this.preloader.preloaderCover.remove())

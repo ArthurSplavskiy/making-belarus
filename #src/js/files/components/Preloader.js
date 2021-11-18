@@ -13,9 +13,10 @@ class Preloader {
 
     init () {
         
+
+        this.close()
         this.slider()
         this.timer()
-        this.close()
     }
 
     slider () {
@@ -24,6 +25,17 @@ class Preloader {
         const delay = 4000
         const steps = slides.length
         let round = 0
+
+        this.lastSlideTimeline = gsap.timeline({ defaults: { stagger: 0.1} })
+        gsap.set(this.closeTitleLines.lines, {
+            y: '100%',
+            opacity: 0
+        })
+        this.lastSlideTimeline.to(this.closeTitleLines.lines, {
+            y: '10%',
+            opacity: 1
+        })
+        this.lastSlideTimeline.pause()
 
         const slideChange = () => {
             round++
@@ -47,11 +59,7 @@ class Preloader {
                 this.animation.animationTextIn(this.splitDateText.chars)
             }
             if(round === 2) {
-                gsap.fromTo(this.closeTitleLines.words, {
-                    y: '100%'
-                }, {
-                    y: '10%'
-                })
+                this.lastSlideTimeline.play()
             }
         }
 
@@ -110,27 +118,14 @@ class Preloader {
 
         gsap.set(this.element, { transformOrigin: '100% 100%' })
 
-        this.timelineClose = gsap.timeline(this.element)
+        this.timelineClose = gsap.timeline()
 
         const clickHandler = () => {
-            const opacityItems = [this.elementBg, this.sliderEl]
-            gsap.fromTo(opacityItems, {
-                autoAlpha: '1'
-            }, {
-                autoAlpha: '0'
-            })
-
-            gsap.fromTo(this.closeTitleLines.words, {
-                y: '0%'
-            }, {
-                duration: 1,
-                ease: Power1.easeOut,
-                y: '100%'
-            })
+            this.lastSlideTimeline.reverse()
 
             this.timelineClose.to(this.element, {
-                scaleY: '0'
-            }, '+=0.7')
+                yPercent: -100
+            }, '+=1')
 
             this.timelineClose.call(_ => {
                 this.element.remove()

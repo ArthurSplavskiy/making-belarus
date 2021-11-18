@@ -1,16 +1,14 @@
 class Observer {
-    constructor (element, animationIn, animationOut) {
+    constructor (element, animationIn, animationOut, options = {}) {
         this.element = element
         this.animationIn = animationIn
         this.animationOut = animationOut
+        this.options = options
 
         this.createObserver()
     }
 
     createObserver () {
-        this.options = {
-            //threshold: 0.9
-        }
 
         this.observer = new window.IntersectionObserver(entries => {
             entries.forEach(entry => {

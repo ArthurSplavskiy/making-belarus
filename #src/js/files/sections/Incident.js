@@ -68,9 +68,8 @@ class IncidentSection {
         this.timeline.call(_ => {
             this.pinSpacer.style.zIndex = -1;
         })
+        
         //
-
-
         // timeline.fromTo(historySection, {
         //     duration: 0.05,
         //     filter: 'brightness(0)'
