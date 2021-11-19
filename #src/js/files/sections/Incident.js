@@ -9,6 +9,8 @@ class IncidentSection {
         this.cardDescr = this.element.querySelectorAll('.incident-item__descr')
         this.cardsHover = this.element.querySelectorAll('.incident-item__hover')
 
+        this.scrollIndicator = document.querySelector('.scroll-indicator')
+
         this.split = new Split()
 
         this.init()
@@ -34,6 +36,7 @@ class IncidentSection {
             start: self => self.previous().end,
             end: '55000px 100%',
             pin: true, 
+            pinSpacing: "margin",
             scrub: 1
         });
 
@@ -55,6 +58,10 @@ class IncidentSection {
         this.timeline.to(this.element, {
             yPercent: -100
         })
+
+        this.timeline.to(this.scrollIndicator, {
+            autoAlpha: 0
+        }, '<')
 
         /*
             z-index

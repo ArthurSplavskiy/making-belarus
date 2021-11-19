@@ -40,6 +40,7 @@ class App {
     }
 
     onResize () {
+        ScrollTrigger.refresh()
     }
 
     addEventListeners () {

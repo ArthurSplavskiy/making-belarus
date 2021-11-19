@@ -3,6 +3,8 @@ class HeroSection {
         this.element = document.querySelector('.hero-section')
         this.heroComposition = this.element.querySelector('.hero-composition')
 
+        this.pinSpacer = this.element.parentElement
+
         this.timelineSection = document.querySelector('.timeline-section')
 
         this.heroFirstLines = this.heroComposition.querySelectorAll('.hero-composition__title')
@@ -14,6 +16,7 @@ class HeroSection {
 
     init () {
         this.timelineAnimation()
+        this.normalize()
     }
 
     timelineAnimation() {
@@ -23,8 +26,9 @@ class HeroSection {
             trigger: this.element,
             animation: this.timeline,
             start: "top top",
-            end: '+=8000',
+            end: () => this.element.offsetHeight * 10, // '+=8000' 
             pin: true,
+            pinSpacing: "margin",
             scrub: 1
         });
 
@@ -85,4 +89,10 @@ class HeroSection {
         })
 
     }
+
+    normalize () {
+        //console.log(this.element.offsetHeight * 10 + 'px!important')
+        this.pinSpacer.style.height = this.element.offsetHeight * 10 + 'px!important'
+    }
+
 }

@@ -28,7 +28,7 @@ class Header {
         }
 
         if(this.burger.classList.contains('_active')) { // menu open
-
+            
             this.menuTimeline.play()
             
             this.menuTimeline.call(_ => {

@@ -29,7 +29,7 @@ class TimelineSection {
                 ScrollTrigger.create({
                     trigger: rootElement,
                     animation: timeline,
-                    start: "+=8000",
+                    start: self => self.previous().end, // "+=8000"
                     end: '30000px 100%',
                     pin: true, // add
                     scrub: 1,
@@ -50,12 +50,15 @@ class TimelineSection {
 
                 const historySection = document.querySelector('.history-section')
 
+                //console.log(30000 - rootElement.offsetHeight + "px 100%")
+
                 ScrollTrigger.create({
                     trigger: rootElement,
                     animation: timeline,
                     start: self => self.previous().end,//"+=8000",
                     end: '30000px 100%',
                     pin: true, // add
+                    pinSpacing: "margin",
                     scrub: 1
                 });
                 

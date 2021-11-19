@@ -24,6 +24,8 @@ class HistorySection {
     scroll() {
         this.timeline = gsap.timeline({ defaults: {ease: 'none' } })
 
+        //console.log(50000 - this.element.offsetHeight + "px 100%")
+
         ScrollTrigger.create({
             trigger: this.element,
             animation: this.timeline,
@@ -31,6 +33,7 @@ class HistorySection {
             start: self => self.previous().end, //"+=29500", // 26100 
             end: '50000px 100%',
             pin: true,
+            pinSpacing: "margin",
 
             scrub: 1,
             //onUpdate: self => console.log("progress:", self.progress)

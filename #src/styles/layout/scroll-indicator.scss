@@ -5,6 +5,10 @@
     bottom: 6.4rem;
     z-index: z('scroll-indicator');
 
+    @include media('<=tablet') {
+        display: none;
+    }
+
     &.horizontal {
         svg {
             transform: rotate(-90deg);

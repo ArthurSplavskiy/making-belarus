@@ -8,6 +8,8 @@ class BlogSection {
         this.descriptions = [...this.element.querySelectorAll('.media-column p'), ...this.element.querySelectorAll('.blog-item_bg .content p')]
         this.dots = this.element.querySelectorAll('.dots')
 
+        this.header = document.querySelector('.header')
+
         this.footer = document.querySelector('.footer')
         this.footerLinks = this.footer.querySelectorAll('.social-link')
 
@@ -32,18 +34,31 @@ class BlogSection {
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end,
-            end: () => 60000 + this.elementWrapper.offsetHeight + " 100%", //'60000px 100%'
+            end: () => 60000 + this.element.scrollHeight + "px 100%", //'60000px 100%'
             pin: true, // add
+            pinSpacing: "margin",
             scrub: 1,
 
+            onEnter: () => {
+
+                this.headerClassToggle()
+            },
             onEnterBack: () => {
                 this.footerClassToggle()
                 this.elementClassToggle()
+
+                this.headerClassToggle()
             },
             onLeave: () => {
                 this.footerClassToggle()
                 this.elementClassToggle()
+
+                this.headerClassToggle()
             },
+            onLeaveBack: () => {
+
+                this.headerClassToggle()
+            }
         });
 
         this.scrollerSecion = this.timeline.to(this.element, {
@@ -90,7 +105,7 @@ class BlogSection {
     descrAnimation() {
 
         this.split.splitText(this.descriptions, {
-            type: "lines, chars",
+            type: "lines,words,chars",
             linesClass: "split-child"
         })
         this.split.splitText(this.descriptions, {
@@ -122,6 +137,14 @@ class BlogSection {
             type: "lines",
             linesClass: "split-parent"
         })
+    }
+
+    headerClassToggle () {
+        if(!this.header.classList.contains('dark-theme')) {
+            this.header.classList.add('dark-theme')
+        } else {
+            this.header.classList.remove('dark-theme')
+        }
     }
 
     footerClassToggle () {
