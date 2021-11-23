@@ -1,9 +1,9 @@
-
-@@include('files/utils/svg-inline.js', {})
+@@include('files/utils/body-lock.js', {})
 
 @@include('files/classes/Observer.js', {})
 @@include('files/classes/Split.js', {})
 @@include('files/classes/Animation.js', {})
+@@include('files/classes/AsyncLoad.js', {})
 
 @@include('files/components/Cursor.js', {})
 @@include('files/components/Header.js', {})

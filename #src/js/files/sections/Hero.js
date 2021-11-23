@@ -16,7 +16,7 @@ class HeroSection {
 
     init () {
         this.timelineAnimation()
-        this.normalize()
+        //this.normalize()
     }
 
     timelineAnimation() {
@@ -26,7 +26,7 @@ class HeroSection {
             trigger: this.element,
             animation: this.timeline,
             start: "top top",
-            end: () => this.element.offsetHeight * 10, // '+=8000' 
+            end: () => '+=8000', // '+=8000' 
             pin: true,
             pinSpacing: "margin",
             scrub: 1
@@ -91,7 +91,6 @@ class HeroSection {
     }
 
     normalize () {
-        //console.log(this.element.offsetHeight * 10 + 'px!important')
         this.pinSpacer.style.height = this.element.offsetHeight * 10 + 'px!important'
     }
 

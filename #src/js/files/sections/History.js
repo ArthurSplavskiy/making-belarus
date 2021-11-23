@@ -48,7 +48,8 @@ class HistorySection {
         })
 
         gsap.set(this.moveBg, {
-            scale: 0.5
+            scale: 0.5,
+            z: '1px'
         })
 
         gsap.set(this.content, {
@@ -72,12 +73,12 @@ class HistorySection {
 
         this.timeline.to(this.toFillStar, {
             duration: 5,
-            rotate: '1000deg'
+            rotate: '100deg'
         }, '<')
 
         this.timeline.to(this.toStrokeStar, {
             duration: 3,
-            rotate: '-1000deg'
+            rotate: '-100deg'
         }, '<')
 
         this.timeline.to(this.moveBg, {

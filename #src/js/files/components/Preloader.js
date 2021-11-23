@@ -4,16 +4,15 @@ class Preloader {
         this.elementBg = this.element.querySelector('.preloader__bg')
         this.preloaderCover = document.querySelector('.preloader-cover')
 
+        this.heroTitles = document.querySelectorAll('.hero-composition__title')
+
         this.split = new Split()
         this.animation = new Animation()
-
-        // last
-        this.init()
     }
 
     init () {
         
-
+        this.heroTitlesAnimation()
         this.close()
         this.slider()
         this.timer()
@@ -22,7 +21,7 @@ class Preloader {
     slider () {
         this.sliderEl = this.element.querySelector('.preloader__slider')
         const slides = this.sliderEl.querySelectorAll('.preloader__slide')
-        const delay = 4000
+        const delay = 6000
         const steps = slides.length
         let round = 0
 
@@ -36,6 +35,8 @@ class Preloader {
             opacity: 1
         })
         this.lastSlideTimeline.pause()
+
+        slides[0].classList.add('_active')
 
         const slideChange = () => {
             round++
@@ -54,7 +55,7 @@ class Preloader {
             if(round === steps) {
                 clearInterval(interval)
             }
-
+            
             if(round === 1) {
                 this.animation.animationTextIn(this.splitDateText.chars)
             }
@@ -129,9 +130,34 @@ class Preloader {
 
             this.timelineClose.call(_ => {
                 this.element.remove()
+
+                body_lock_remove(0)
+
+                gsap.to(this.heroTitlesLine.lines, {
+                    duration: 1,
+                    ease: Power1.easeOut,
+                    stagger: 0.09,
+                    y: '0%',
+                    opacity: 1
+                })
             })
         }
 
         closeButton.onclick = clickHandler
+    }
+
+    heroTitlesAnimation () {
+        this.heroTitlesLine = this.split.splitText(this.heroTitles, {
+            type: "lines,words,chars",
+            linesClass: "split-child"
+        })
+        this.split.splitText(this.heroTitles, {
+            linesClass: "split-parent"
+        })
+
+        gsap.set(this.heroTitlesLine.lines, {
+            y: '100%',
+            opacity: 0
+        })
     }
 }

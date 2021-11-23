@@ -47,6 +47,7 @@ class TimelineSection {
                 const scrollWrapper = document.querySelector('.timeline-section__wrapper')
                 const scrollContainer = document.querySelector('.scroll-container')
                 const scrollContainerBG = document.querySelector('.scroll-container__bg')
+                const scrollIndicatorArrow = document.querySelectorAll('.scroll-indicator path, .scroll-indicator rect')
 
                 const historySection = document.querySelector('.history-section')
 
@@ -61,6 +62,11 @@ class TimelineSection {
                     pinSpacing: "margin",
                     scrub: 1
                 });
+                
+                timeline.to(scrollIndicatorArrow, {
+                    duration: 0,
+                    fill: '#ffffff'
+                })
                 
                 timeline.fromTo(scrollContainer, {
                     x: 0,
@@ -91,11 +97,6 @@ class TimelineSection {
             }
 
         })
-       
-        
-        // tim.call(_ => {
-        //     console.log('end')
-        // })
 
     }
 

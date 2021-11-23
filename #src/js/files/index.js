@@ -9,7 +9,6 @@ class App {
           * Components
         */
         this.header = new Header()
-        this.preloader = new Preloader()
         this.animation = new Animation()
         this.cursor = new Cursor()
 
@@ -20,7 +19,11 @@ class App {
         this.timelineSection = new TimelineSection()
         this.historySection = new HistorySection()
         this.incidentSection = new IncidentSection()
-        this.blogSection = new BlogSection()
+
+        /*
+          * Functions
+        */
+       this.asyncLoad()
     }
 
     pageLoad () {
@@ -28,9 +31,13 @@ class App {
         /*
           * Preloader cover
         */
-        const preloaderCoverTimeline = gsap.timeline()
+        this.preloader = new Preloader()
+        const preloaderCoverTimeline = gsap.timeline({ defaults: {delay: 1} })
         preloaderCoverTimeline.fromTo(this.preloader.preloaderCover, { autoAlpha: 1 }, { autoAlpha: 0 })
         preloaderCoverTimeline.call(_ => this.preloader.preloaderCover.remove())
+
+        this.blogSection = new BlogSection()
+        this.preloader.init()
     }
 
     contentDomLoad () {
@@ -40,7 +47,6 @@ class App {
     }
 
     onResize () {
-        ScrollTrigger.refresh()
     }
 
     addEventListeners () {
@@ -52,6 +58,14 @@ class App {
     removeEventListeners () {
         window.removeEventListener('load', this.pageLoad.bind(this))
         document.removeEventListener('DOMContentLoaded', this.contentDomLoad.bind(this))
+    }
+
+    asyncLoad () {
+        const images = document.querySelectorAll('[data-src]')
+
+        this.preloadImages = Array.from(images).map(image => {
+            return new AsyncLoad(image)
+        })
     }
 }
 

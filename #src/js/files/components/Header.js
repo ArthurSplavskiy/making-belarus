@@ -28,6 +28,7 @@ class Header {
         }
 
         if(this.burger.classList.contains('_active')) { // menu open
+            body_lock_add(0, 'menu')
             
             this.menuTimeline.play()
             
@@ -37,6 +38,7 @@ class Header {
 
             this.addEventListeners()
         } else { // menu close
+            body_lock_remove(0, 'menu')
 
             this.closeMenu()
         }
@@ -125,9 +127,30 @@ class Header {
     }
 
     anchorsTransition (e) {
-        //console.log(e.target)
-        //gsap.to(window, {duration: 2, scrollTo:"#someID"});
-        gsap.to(window, { duration: 2, scrollTo: {y: 60000} });
+        const timelineSection = 8000
+        const historySection = 30000
+        const incidentSection = 50000
+        const blogSection = 55000
+
+        if(e.target.classList.contains('page-menu__card') || e.target.closest('.page-menu__card')) {
+            const el = e.target.closest('.page-menu__card').dataset
+            console.log(el.link)
+
+            switch(el.link) {
+                case 's-timeline': 
+                    gsap.to(window, { duration: 2, scrollTo: {y: timelineSection} })
+                    break;
+                case 's-history': 
+                    gsap.to(window, { duration: 2, scrollTo: {y: historySection} })
+                    break;
+                case 's-incident': 
+                    gsap.to(window, { duration: 2, scrollTo: {y: incidentSection} })
+                    break;
+                case 's-blog': 
+                    gsap.to(window, { duration: 2, scrollTo: {y: blogSection} })
+                    break;
+            }
+        }
 
         this.closeMenu()
     }
@@ -149,6 +172,7 @@ class Header {
         this.menuTimeline.reverse()
         this.element.classList.remove('menu-open')
         this.removeEventListeners()
+        body_lock_remove(0, 'menu')
     }
 
 }

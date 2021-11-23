@@ -34,9 +34,8 @@ class BlogSection {
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end,
-            end: () => 60000 + this.element.scrollHeight + "px 100%", //'60000px 100%'
+            end: () => 55000 + this.element.scrollHeight + "px 100%", //'60000px 100%'
             pin: true, // add
-            pinSpacing: "margin",
             scrub: 1,
 
             onEnter: () => {
