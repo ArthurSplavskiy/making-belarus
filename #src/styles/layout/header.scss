@@ -21,8 +21,10 @@
             }
         }
         .burger {
-            div {
-                background: $color-white!important;
+            @include media('>tablet') {
+                div {
+                    background: $color-white!important;
+                }
             }
         }
     }
@@ -74,10 +76,10 @@
         height: 7.2rem;
     }
     @include media('<=tablet') {
-        height: 6.8rem;
+        height: 68px;
     }
     @include media('<=phone') {
-        height: 4.8rem;
+        height: 48px;
     }
 
     &__wrapper {
@@ -136,14 +138,14 @@
     }
 
     @include media('<=tablet') {
-        width: 4.8rem;
-        height: 4.8rem;
+        width: 48px;
+        height: 48px;
         background: $color-white;
         border-radius: 100%;
     }
     @include media('<=phone') {
-        width: 3.2rem;
-        height: 3.2rem;
+        width: 32px;
+        height: 32px;
         background: $color-white;
         border-radius: 100%;
     }
@@ -155,7 +157,7 @@
 
         @include media('<=tablet') {
             background: $color-black;
-            width: 3rem;
+            width: 30px;
 
             &:first-child {
                 margin-bottom: 6px;
@@ -168,7 +170,7 @@
             }
         }
         @include media('<=phone') {
-            width: 2rem;
+            width: 20px;
             &:first-child {
                 margin-bottom: 3px;
             }

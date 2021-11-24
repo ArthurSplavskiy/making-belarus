@@ -32,9 +32,11 @@ class Header {
             
             this.menuTimeline.play()
             
-            this.menuTimeline.call(_ => {
-                this.element.classList.add('menu-open')
-            })
+            // this.menuTimeline.call(_ => {
+            //     this.element.classList.add('menu-open')
+            // })
+
+            this.element.classList.add('menu-open')
 
             this.addEventListeners()
         } else { // menu close
@@ -75,7 +77,6 @@ class Header {
     }
 
     menuSlider () {
-        this.menuSlider = this.element.querySelector('.swiper')
 
         const swiper = new Swiper('.swiper', {
             init: true,
@@ -120,7 +121,7 @@ class Header {
             type: "lines",
             linesClass: "split-child"
         })
-        this.split.splitText(this.cardsTitle, {
+        this.titleParentLines = this.split.splitText(this.cardsTitle, {
             type: "lines",
             linesClass: "split-parent"
         })
@@ -134,7 +135,6 @@ class Header {
 
         if(e.target.classList.contains('page-menu__card') || e.target.closest('.page-menu__card')) {
             const el = e.target.closest('.page-menu__card').dataset
-            console.log(el.link)
 
             switch(el.link) {
                 case 's-timeline': 
@@ -173,6 +173,11 @@ class Header {
         this.element.classList.remove('menu-open')
         this.removeEventListeners()
         body_lock_remove(0, 'menu')
+    }
+
+    onResize () {
+        this.titleLines.revert()
+        this.titleParentLines.revert()
     }
 
 }

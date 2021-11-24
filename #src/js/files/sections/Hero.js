@@ -16,7 +16,6 @@ class HeroSection {
 
     init () {
         this.timelineAnimation()
-        //this.normalize()
     }
 
     timelineAnimation() {
@@ -40,7 +39,7 @@ class HeroSection {
         })
 
         this.timeline.to(this.heroFirstLines[0], {
-            x: - (((window.innerWidth - (this.heroFirstLines[1].clientWidth / 2)) / 2) + (this.heroFirstLines[1].clientWidth /2 )),
+            x: - (((window.innerWidth - (this.heroFirstLines[1].clientWidth / 2)) / 2) + (this.heroFirstLines[1].clientWidth /2 )), 
             ease: Power1.easeIn,
             duration: 2
         }, '>')
@@ -59,7 +58,7 @@ class HeroSection {
             scale: 0,
             autoAlpha: 0.1
         }, {
-            scale: 18,
+            scale: 1,
             autoAlpha: 1,
             ease: Power4.easeIn,
             duration: 2.5
@@ -88,10 +87,6 @@ class HeroSection {
             this.pinSpacer.style.zIndex = -1;
         })
 
-    }
-
-    normalize () {
-        this.pinSpacer.style.height = this.element.offsetHeight * 10 + 'px!important'
     }
 
 }

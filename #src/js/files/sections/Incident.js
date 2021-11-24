@@ -30,14 +30,14 @@ class IncidentSection {
 
         this.timeline = gsap.timeline({ defaults: {ease: 'none' } })
 
-        ScrollTrigger.create({
+        this.timelineST = ScrollTrigger.create({
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end,
             end: '55000px 100%',
             pin: true, 
             pinSpacing: "margin",
-            scrub: 1
+            scrub: 1,
         });
 
         if(this.scrollContainer.scrollWidth > window.innerWidth) {
@@ -104,6 +104,10 @@ class IncidentSection {
 
     cardAnimationOut (el) {
         el.classList.remove('is-view')
+    }
+
+    onResize () {
+        this.splitDescription.revert()
     }
 
 }

@@ -6,4 +6,5 @@ class Split {
     splitText (text, options = {}) {
         return new SplitText(text, options)
     }
+    
 }

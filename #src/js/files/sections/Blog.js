@@ -87,7 +87,7 @@ class BlogSection {
     }
 
     onScreen () {
-        this.observerImages = new Observer(this.images, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.5 })
+        this.observerImages = new Observer(this.images, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.75 })
         this.observerDots = new Observer(this.dots, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.5 })
     }
 
@@ -103,11 +103,13 @@ class BlogSection {
 
     descrAnimation() {
 
-        this.split.splitText(this.descriptions, {
-            type: "lines,words,chars",
+        this.descriptionsSplitChild = this.split.splitText(this.descriptions, {
+            type: "lines,words",
             linesClass: "split-child"
         })
-        this.split.splitText(this.descriptions, {
+        
+        this.descriptionsSplitParent = this.split.splitText(this.descriptions, {
+            type: "lines,words",
             linesClass: "split-parent"
         })
 
@@ -128,11 +130,11 @@ class BlogSection {
     }
 
     footerLinksSplit() {
-        this.split.splitText(this.footerLinks, {
+        this.footerLinksSplitChild = this.split.splitText(this.footerLinks, {
             type: "lines",
             linesClass: "split-child"
         })
-        this.split.splitText(this.footerLinks, {
+        this.footerLinksSplitParent = this.split.splitText(this.footerLinks, {
             type: "lines",
             linesClass: "split-parent"
         })
@@ -160,6 +162,16 @@ class BlogSection {
         } else {
             this.element.classList.remove('leave')
         }
+    }
+
+    onResize () {
+        this.descriptionsSplitParent.revert()
+        this.descriptionsSplitChild.revert()
+
+        this.footerLinksSplitChild.revert()
+        this.footerLinksSplitParent.revert()
+
+        this.descrAnimation()
     }
     
 }

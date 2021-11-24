@@ -3,6 +3,9 @@ class Preloader {
         this.element = document.querySelector('.preloader')
         this.elementBg = this.element.querySelector('.preloader__bg')
         this.preloaderCover = document.querySelector('.preloader-cover')
+        this.closeSlide = this.element.querySelector('.preloader__slide:last-child')
+        this.closeTitle = this.closeSlide.querySelector('.preloader__title')
+        this.closeButton = this.closeSlide.querySelector('.preloader__button')
 
         this.heroTitles = document.querySelectorAll('.hero-composition__title')
 
@@ -21,19 +24,25 @@ class Preloader {
     slider () {
         this.sliderEl = this.element.querySelector('.preloader__slider')
         const slides = this.sliderEl.querySelectorAll('.preloader__slide')
-        const delay = 6000
+        const delay = 7000
         const steps = slides.length
         let round = 0
 
-        this.lastSlideTimeline = gsap.timeline({ defaults: { stagger: 0.1} })
-        gsap.set(this.closeTitleLines.lines, {
+        this.lastSlideTimeline = gsap.timeline({ defaults: { stagger: 0.1, duration: 0.6 } })
+
+        gsap.set(this.closeTitleLinesChild.lines, {
             y: '100%',
             opacity: 0
         })
-        this.lastSlideTimeline.to(this.closeTitleLines.lines, {
+        this.lastSlideTimeline.to(this.closeTitleLinesChild.lines, {
             y: '10%',
             opacity: 1
         })
+
+        // gsap.utils.toArray(this.closeTitleLines.lines).forEach((el, index) => {
+            
+        // })
+        
         this.lastSlideTimeline.pause()
 
         slides[0].classList.add('_active')
@@ -111,11 +120,10 @@ class Preloader {
     }
 
     close () {
-        const closeSlide = this.element.querySelector('.preloader__slide:last-child')
-        const closeTitle = closeSlide.querySelector('.preloader__title')
-        const closeButton = closeSlide.querySelector('.preloader__button')
-
-        this.closeTitleLines = this.split.splitText(closeTitle, { type: "lines,words" })
+        this.closeTitleLines = this.split.splitText(this.closeTitle, { type: "lines,words" })
+        this.closeTitleLinesChild = this.split.splitText(this.closeTitleLines.lines, {
+            linesClass: "split-parent"
+        })
 
         gsap.set(this.element, { transformOrigin: '100% 100%' })
 
@@ -143,7 +151,7 @@ class Preloader {
             })
         }
 
-        closeButton.onclick = clickHandler
+        this.closeButton.onclick = clickHandler
     }
 
     heroTitlesAnimation () {
@@ -151,7 +159,7 @@ class Preloader {
             type: "lines,words,chars",
             linesClass: "split-child"
         })
-        this.split.splitText(this.heroTitles, {
+        this.heroTitlesParentLine = this.split.splitText(this.heroTitles, {
             linesClass: "split-parent"
         })
 
@@ -160,4 +168,14 @@ class Preloader {
             opacity: 0
         })
     }
+
+    onResize () {
+        this.heroTitlesLine.revert()
+        this.heroTitlesParentLine.revert()
+        this.closeTitleLines.revert()
+        this.splitDateText.revert()
+
+        this.heroTitlesAnimation()
+    }
+
 }

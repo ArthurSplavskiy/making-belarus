@@ -15,7 +15,6 @@ class TimelineSection {
     init () {
         this.scroll()
         this.Animation()
-        //this.textSplit()
     }
 
     scroll () {
@@ -25,33 +24,43 @@ class TimelineSection {
             "(max-width: 768px)": function() {
                 const timeline = gsap.timeline({ defaults: {ease: 'none'} })
                 const rootElement = document.querySelector('.timeline-section')
+                const scrollContainerBG = rootElement.querySelector('.scroll-container__bg')
 
                 ScrollTrigger.create({
                     trigger: rootElement,
                     animation: timeline,
                     start: self => self.previous().end, // "+=8000"
                     end: '30000px 100%',
-                    pin: true, // add
+                    pin: true, 
                     scrub: 1,
                 });
 
+                gsap.set(scrollContainerBG, {
+                    xPercent: -50,
+                    yPercent: -50,
+                    rotate: '90deg'
+                })
+
                 timeline.to(rootElement, {
                     duration: 0.1,
-                    y: - (rootElement.scrollHeight + 100)
+                    y: - (rootElement.scrollHeight + 200)
                 })
+
+                timeline.to(scrollContainerBG, {
+                    duration: 0.1,
+                    y: 1000,
+                }, '<')
+
             },
 
             "(min-width: 769px)": function() {
                 const timeline = gsap.timeline({ defaults: {ease: 'none'} })
                 const rootElement = document.querySelector('.timeline-section')
-                const scrollWrapper = document.querySelector('.timeline-section__wrapper')
                 const scrollContainer = document.querySelector('.scroll-container')
                 const scrollContainerBG = document.querySelector('.scroll-container__bg')
                 const scrollIndicatorArrow = document.querySelectorAll('.scroll-indicator path, .scroll-indicator rect')
 
                 const historySection = document.querySelector('.history-section')
-
-                //console.log(30000 - rootElement.offsetHeight + "px 100%")
 
                 ScrollTrigger.create({
                     trigger: rootElement,
@@ -113,41 +122,6 @@ class TimelineSection {
 
     imageAnimationOut (el) {
         el.classList.remove('_reveal')
-    }
-
-    textSplit () {
-    
-        const animationLines = this.split.splitText(this.text, {
-            type: "lines",
-            linesClass: "split-child"
-        });
-        this.split.splitText(this.text, {
-            linesClass: "split-parent"
-        });
-
-        // stagger
-        this.text.forEach((textBox, index) => {
-            const list = textBox.querySelectorAll('.split-parent')
-
-            list.forEach((el, idx) => {
-                const listChilds = el.querySelectorAll('.split-child')
-
-                listChilds.forEach(line => {
-                    if(idx > 0) {
-                        let animationTime = idx
-
-                        if(animationTime < 10) {
-                            line.style.transitionDelay = `0.${animationTime}s`
-                        } else {
-                            line.style.transitionDelay = `${animationTime}s`
-                        }
-                        //console.log(animationTime)
-                    }
-                })
-
-            })
-        })
-
     }
 
     textAnimationIn (el) {

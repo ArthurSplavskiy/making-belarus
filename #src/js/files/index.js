@@ -47,6 +47,20 @@ class App {
     }
 
     onResize () {
+
+        if(this.blogSection) {
+            this.blogSection.onResize()
+        }
+        if(this.incidentSection) {
+            this.incidentSection.onResize()
+        }
+        if(this.header) {
+            this.header.onResize()
+        }
+        if(this.preloader) {
+            this.preloader.onResize()
+        }
+        
     }
 
     addEventListeners () {
