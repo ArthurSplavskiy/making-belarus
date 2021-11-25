@@ -1,6 +1,6 @@
 class Preloader {
-    constructor () {
-        this.element = document.querySelector('.preloader')
+    constructor (element) {
+        this.element = element
         this.elementBg = this.element.querySelector('.preloader__bg')
         this.preloaderCover = document.querySelector('.preloader-cover')
         this.closeSlide = this.element.querySelector('.preloader__slide:last-child')
@@ -8,6 +8,8 @@ class Preloader {
         this.closeButton = this.closeSlide.querySelector('.preloader__button')
 
         this.heroTitles = document.querySelectorAll('.hero-composition__title')
+        this.heroDescriptions = document.querySelectorAll('.hero-composition__description')
+        this.burger = document.querySelector('.burger')
 
         this.split = new Split()
         this.animation = new Animation()
@@ -24,9 +26,6 @@ class Preloader {
     slider () {
         this.sliderEl = this.element.querySelector('.preloader__slider')
         const slides = this.sliderEl.querySelectorAll('.preloader__slide')
-        const delay = 7000
-        const steps = slides.length
-        let round = 0
 
         this.lastSlideTimeline = gsap.timeline({ defaults: { stagger: 0.1, duration: 0.6 } })
 
@@ -47,33 +46,44 @@ class Preloader {
 
         slides[0].classList.add('_active')
 
-        const slideChange = () => {
-            round++
+        slides[0].style.cssText = `
+            animation-name: animationEnd;
+            animation-duration: 2s;
+            animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+            animation-fill-mode: forwards;
+            animation-delay: 6s;
+        `
 
-            slides.forEach((slide, index) => {
-                if(index < 2) {
-                    slide.classList.remove('_active')
-                }
-            })
-            const slide = slides[round]
+        slides[1].style.cssText = `
+            animation-name: animationEndSecond;
+            animation-duration: 2s;
+            animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+            animation-fill-mode: forwards;
+            animation-delay: 10s;
+        `
 
-            if(slide) {
-                slide.classList.add('_active')
-            }
+        /*
+          * Slides animation
+        */
+        const firstSlideDelay = 7000
+        const secondSlideDelay = 12000
 
-            if(round === steps) {
-                clearInterval(interval)
-            }
-            
-            if(round === 1) {
-                this.animation.animationTextIn(this.splitDateText.chars)
-            }
-            if(round === 2) {
-                this.lastSlideTimeline.play()
-            }
+        let firstSlideAnimation = () => {
+            slides[0].classList.remove('_active')
+            slides[1].classList.add('_active')
+
+            this.animation.animationTextIn(this.splitDateText.chars)
         }
 
-        let interval = setInterval(slideChange, delay)
+        let secondSlideAnimation = () => {
+            slides[1].classList.remove('_active')
+            slides[2].classList.add('_active')
+
+            this.lastSlideTimeline.play()
+        } 
+
+        setTimeout(firstSlideAnimation, firstSlideDelay)
+        setTimeout(secondSlideAnimation, secondSlideDelay)
     }
 
     timer () {
@@ -104,11 +114,16 @@ class Preloader {
             outMonth = Math.abs((nowDateMonth - independenceMonth) - 1)
             outDay = Math.abs(nowDateDay + 6)
         } else {
+            outMonth = Math.abs(nowDateMonth - independenceMonth)
             outDay = Math.abs(nowDateDay - independenceDay)
         }
 
         const setZero = (num) => {
-            return num < 10 ? `0${num}` : num
+            if(num) {
+                return num < 10 ? `0${num}` : num
+            } else {
+                return '00'
+            }
         }
 
         timerYearField.innerHTML = setZero(outYear)
@@ -127,7 +142,7 @@ class Preloader {
 
         gsap.set(this.element, { transformOrigin: '100% 100%' })
 
-        this.timelineClose = gsap.timeline()
+        this.timelineClose = gsap.timeline({ defaults: { duration: 1, ease: Power2.easeIn } })
 
         const clickHandler = () => {
             this.lastSlideTimeline.reverse()
@@ -148,6 +163,16 @@ class Preloader {
                     y: '0%',
                     opacity: 1
                 })
+
+                gsap.to(this.heroDescriptions, {
+                    duration: 1,
+                    ease: Power1.easeOut,
+                    opacity: 1,
+                    y: 0,
+                    scale: 1
+                })
+
+                this.burger.classList.remove('disable')
             })
         }
 
@@ -165,6 +190,9 @@ class Preloader {
 
         gsap.set(this.heroTitlesLine.lines, {
             y: '100%',
+            opacity: 0
+        })
+        gsap.set(this.heroDescriptions, {
             opacity: 0
         })
     }

@@ -1,6 +1,6 @@
 class BlogSection {
-    constructor () {
-        this.element = document.querySelector('.blog-section')
+    constructor (element) {
+        this.element = element
         this.elementWrapper = document.querySelector('.blog-section__wrapper')
         this.scrollContainerBG = this.element.querySelector('.blog-section__bg')
 
@@ -34,8 +34,8 @@ class BlogSection {
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end,
-            end: () => 55000 + this.element.scrollHeight + "px 100%", //'60000px 100%'
-            pin: true, // add
+            end: '70000px 100%',
+            pin: true,
             scrub: 1,
 
             onEnter: () => {

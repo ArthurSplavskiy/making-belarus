@@ -13,13 +13,29 @@ class App {
         this.cursor = new Cursor()
 
         /*
+          * Elements
+        */
+        this.$heroSection = document.querySelector('.hero-section')
+        this.$timelineSection = document.querySelector('.timeline-section')
+        this.$histotySection = document.querySelector('.history-section')
+        this.$incidentSection = document.querySelector('.incident-section')
+
+        /*
           * Sections
         */
-        this.heroSection = new HeroSection()
-        this.timelineSection = new TimelineSection()
-        this.historySection = new HistorySection()
-        this.incidentSection = new IncidentSection()
-
+        if (this.$heroSection) {
+            this.heroSection = new HeroSection(this.$heroSection)
+        }
+        if (this.$timelineSection) {
+            this.timelineSection = new TimelineSection(this.$timelineSection)
+        }
+        if (this.$histotySection) {
+            this.historySection = new HistorySection(this.$histotySection)
+        }
+        if (this.$incidentSection) {
+            this.incidentSection = new IncidentSection(this.$incidentSection)
+        }
+        
         /*
           * Functions
         */
@@ -29,15 +45,31 @@ class App {
     pageLoad () {
 
         /*
+          * Elements
+        */
+        this.$preloader = document.querySelector('.preloader')
+        this.$blogSection = document.querySelector('.blog-section')
+        this.$preloaderCover = document.querySelector('.preloader-cover')
+
+        /*
           * Preloader cover
         */
-        this.preloader = new Preloader()
+        if (this.$preloader) {
+            this.preloader = new Preloader(this.$preloader)
+        }
+        
         const preloaderCoverTimeline = gsap.timeline({ defaults: {delay: 1} })
-        preloaderCoverTimeline.fromTo(this.preloader.preloaderCover, { autoAlpha: 1 }, { autoAlpha: 0 })
-        preloaderCoverTimeline.call(_ => this.preloader.preloaderCover.remove())
+        preloaderCoverTimeline.fromTo(this.$preloaderCover, { autoAlpha: 1 }, { autoAlpha: 0 })
+        preloaderCoverTimeline.call(_ => this.$preloaderCover.remove())
 
-        this.blogSection = new BlogSection()
-        this.preloader.init()
+        if (this.$blogSection) {
+            this.blogSection = new BlogSection(this.$blogSection)
+        }
+        
+        if (this.preloader) {
+            this.preloader.init()
+        }
+        
     }
 
     contentDomLoad () {
@@ -48,16 +80,16 @@ class App {
 
     onResize () {
 
-        if(this.blogSection) {
+        if (this.blogSection) {
             this.blogSection.onResize()
         }
-        if(this.incidentSection) {
+        if (this.incidentSection) {
             this.incidentSection.onResize()
         }
-        if(this.header) {
+        if (this.header) {
             this.header.onResize()
         }
-        if(this.preloader) {
+        if (this.preloader) {
             this.preloader.onResize()
         }
         

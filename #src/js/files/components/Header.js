@@ -83,6 +83,7 @@ class Header {
             slidesPerView: 4,
             spaceBetween: 40,
             grabCursor: true,
+            speed: 800,
 
             navigation: {
               nextEl: '.swiper-button-next',
@@ -138,16 +139,16 @@ class Header {
 
             switch(el.link) {
                 case 's-timeline': 
-                    gsap.to(window, { duration: 2, scrollTo: {y: timelineSection} })
+                    gsap.to(window, { duration: 1, scrollTo: {y: timelineSection} })
                     break;
                 case 's-history': 
-                    gsap.to(window, { duration: 2, scrollTo: {y: historySection} })
+                    gsap.to(window, { duration: 1, scrollTo: {y: historySection} })
                     break;
                 case 's-incident': 
-                    gsap.to(window, { duration: 2, scrollTo: {y: incidentSection} })
+                    gsap.to(window, { duration: 1, scrollTo: {y: incidentSection} })
                     break;
                 case 's-blog': 
-                    gsap.to(window, { duration: 2, scrollTo: {y: blogSection} })
+                    gsap.to(window, { duration: 1, scrollTo: {y: blogSection} })
                     break;
             }
         }

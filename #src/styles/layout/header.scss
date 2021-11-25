@@ -124,6 +124,13 @@
     justify-content: center;
     flex-direction: column;
     position: relative;
+    transition: opacity 1s $easy-out-expo;
+
+    &.disable {
+        opacity: 0.3;
+        pointer-events: none;
+        user-select: none;
+    }
     
     &._active {
         div:first-child {

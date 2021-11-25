@@ -11,7 +11,7 @@
     }
     &__bg {
         @extend %cover;
-        filter: brightness(0.5);
+        filter: brightness(0.3);
 
         img {
             @extend %cover;
@@ -74,6 +74,7 @@
 
                 .hero-composition__description {
                     text-align: right;
+                    transform: translate3d(0, -20px, 0) scaleY(1.2);
                 }
             }
             &:nth-child(3) {
@@ -94,6 +95,7 @@
                 }
 
                 .hero-composition__title {
+
                     @include media('<=phone') {
                         width: 100%;
 
@@ -118,7 +120,7 @@
                 }
 
                 .hero-composition__description {
-                    max-width: 21rem;
+                    transform: translate3d(0, 20px, 0) scaleY(1.2);
                 }
             }
         }
@@ -146,7 +148,7 @@
                 line-height: 1.92rem;
             }
 
-            max-width: 34.4rem;
+            max-width: 27rem;
         }
     }
 }

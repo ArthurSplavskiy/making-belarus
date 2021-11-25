@@ -1,6 +1,6 @@
 class HistorySection {
-    constructor () {
-        this.element = document.querySelector('.history-section')
+    constructor (element) {
+        this.element = element
 
         this.toLeftLine = this.element.querySelectorAll('.line-container:nth-child(odd) .line')
         this.toRightLine = this.element.querySelectorAll('.line-container:nth-child(even) .line')
@@ -24,8 +24,6 @@ class HistorySection {
     scroll() {
         this.timeline = gsap.timeline({ defaults: {ease: 'none' } })
 
-        //console.log(50000 - this.element.offsetHeight + "px 100%")
-
         ScrollTrigger.create({
             trigger: this.element,
             animation: this.timeline,
@@ -35,9 +33,14 @@ class HistorySection {
             pin: true,
             pinSpacing: "margin",
 
-            scrub: 1,
-            //onUpdate: self => console.log("progress:", self.progress)
+            scrub: 1
         });
+
+        let maxLeftWidth = Array.from(this.toLeftLine).map(line => line.clientWidth).reduce((p, n) => p > n ? p : n)
+        let maxRightWidth = Array.from(this.toRightLine).map(line => line.clientWidth).reduce((p, n) => p > n ? p : n)
+
+        const residualOffsetLeftLine = Math.ceil((maxLeftWidth / 100) * 10)
+        const residualOffsetRightLine = Math.ceil((maxRightWidth / 100) * 10)
 
         gsap.set(this.toLeftLine, {
             xPercent: 10
@@ -62,34 +65,36 @@ class HistorySection {
         })
 
         this.timeline.to(this.toLeftLine, {
-            duration: 7,
-            xPercent: -100
+            duration: 2,
+            x: - (window.innerWidth + residualOffsetLeftLine),
+            opacity: 0.2
         })
 
         this.timeline.to(this.toRightLine, {
-            duration: 8,
-            xPercent: 100
+            duration: 2,
+            x: (window.innerWidth + residualOffsetRightLine),
+            opacity: 0.2
         }, '<')
 
         this.timeline.to(this.toFillStar, {
-            duration: 5,
+            duration: 2,
             rotate: '100deg'
         }, '<')
 
         this.timeline.to(this.toStrokeStar, {
-            duration: 3,
+            duration: 2,
             rotate: '-100deg'
         }, '<')
 
         this.timeline.to(this.moveBg, {
-            duration: 2,
+            duration: 1.5,
             yPercent: -100
-        }, '-=7')
+        }, '-=1')
 
         this.timeline.to(this.moveBg, {
-            duration: 5,
+            duration: 1.1,
             scale: 1
-        }, '-=5')
+        })
 
         this.timeline.fromTo(this.moveBg, {
             filter: 'brightness(1)'
@@ -100,18 +105,18 @@ class HistorySection {
         gsap.utils.toArray(this.textItems).forEach(item => {
             this.timeline.to(item, {
                 display: 'block',
-                duration: 1,
-                autoAlpha: 1
+                
+                opacity: 1
             })
             this.timeline.to(item, {
                 display: 'none',
-                duration: 1,
-                autoAlpha: 0
+                
+                opacity: 0
             })
         })
 
         this.timeline.to(this.element, {
-            duration: 3,
+            duration: 1.6,
             yPercent: -100
         })
 

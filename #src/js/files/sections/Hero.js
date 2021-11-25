@@ -1,6 +1,6 @@
 class HeroSection {
-    constructor () {
-        this.element = document.querySelector('.hero-section')
+    constructor (element) {
+        this.element = element
         this.heroComposition = this.element.querySelector('.hero-composition')
 
         this.pinSpacer = this.element.parentElement
@@ -25,41 +25,44 @@ class HeroSection {
             trigger: this.element,
             animation: this.timeline,
             start: "top top",
-            end: () => '+=8000', // '+=8000' 
+            end: () => '+=8000',
             pin: true,
             pinSpacing: "margin",
             scrub: 1
         });
 
         this.timeline.fromTo(this.heroFirstDescriptions, {
-            autoAlpha: 1
+            opacity: 1
         }, {
             duration: 1,
-            autoAlpha: 0
+            opacity: 0
         })
 
         this.timeline.to(this.heroFirstLines[0], {
             x: - (((window.innerWidth - (this.heroFirstLines[1].clientWidth / 2)) / 2) + (this.heroFirstLines[1].clientWidth /2 )), 
             ease: Power1.easeIn,
-            duration: 2
+            duration: 2,
+            opacity: 0.2
         }, '>')
         this.timeline.to(this.heroFirstLines[1], {
             x: ((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth,
             ease: Power1.easeIn,
-            duration: 2
+            duration: 2,
+            opacity: 0.2
         }, '<')
         this.timeline.to(this.heroFirstLines[2], {
             x: - (((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth),
             ease: Power1.easeIn,
-            duration: 2
+            duration: 2,
+            opacity: 0.2
         }, '<')
 
         this.timeline.fromTo(this.heroMap.children[0], {
             scale: 0,
-            autoAlpha: 0.1
+            opacity: 0.1
         }, {
             scale: 1,
-            autoAlpha: 1,
+            opacity: 1,
             ease: Power4.easeIn,
             duration: 2.5
         }, '=-1.5')

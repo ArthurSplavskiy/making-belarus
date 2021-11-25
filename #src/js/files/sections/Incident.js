@@ -1,6 +1,6 @@
 class IncidentSection {
-    constructor () {
-        this.element = document.querySelector('.incident-section')
+    constructor (element) {
+        this.element = element
         this.scrollContainer = this.element.querySelector('.scroll-container')
         this.scrollContainerBG = this.element.querySelector('.incident-section__bg')
 
@@ -54,6 +54,10 @@ class IncidentSection {
         }, {
             xPercent: -20,
         }, '<')
+
+        this.timeline.to(this.element, {
+            duration: 0.1,
+        })
 
         this.timeline.to(this.element, {
             yPercent: -100

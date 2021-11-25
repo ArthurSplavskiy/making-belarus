@@ -1,6 +1,6 @@
 class TimelineSection {
-    constructor () {
-        this.element = document.querySelector('.timeline-section')
+    constructor (element) {
+        this.element = element
         this.elementWrapper = this.element.querySelector('.timeline-section__wrapper')
         this.elementScroll = this.element.querySelector('.scroll-container')
         this.elementScrollBg = this.element.querySelector('.scroll-container__bg')
@@ -29,7 +29,7 @@ class TimelineSection {
                 ScrollTrigger.create({
                     trigger: rootElement,
                     animation: timeline,
-                    start: self => self.previous().end, // "+=8000"
+                    start: self => self.previous().end,
                     end: '30000px 100%',
                     pin: true, 
                     scrub: 1,
@@ -59,6 +59,8 @@ class TimelineSection {
                 const scrollContainer = document.querySelector('.scroll-container')
                 const scrollContainerBG = document.querySelector('.scroll-container__bg')
                 const scrollIndicatorArrow = document.querySelectorAll('.scroll-indicator path, .scroll-indicator rect')
+                const parallaxImageText = document.querySelectorAll('.parallax-item__img-text')
+                const parallaxImages = document.querySelectorAll('.parallax-item__img')
 
                 const historySection = document.querySelector('.history-section')
 
@@ -87,8 +89,19 @@ class TimelineSection {
                     xPercent: 0,
                     ease: Power3.easeIn,
                 }, {
-                    xPercent: 20,
+                    xPercent: 25,
                 }, '<')
+
+                timeline.to(parallaxImageText, {
+                    x: 40
+                }, '<')
+                timeline.to(parallaxImages, {
+                    x: -40
+                }, '<')
+
+                timeline.to(rootElement, {
+                    duration: 0.02,
+                })
 
                 timeline.to(rootElement, {
                     duration: 0.1,
