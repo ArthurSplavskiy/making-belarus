@@ -19,6 +19,6 @@ class AsyncLoad {
             })
         })
 
-        this.observer.observe(this.element)
+        //this.observer.observe(this.element)
     }
 }
