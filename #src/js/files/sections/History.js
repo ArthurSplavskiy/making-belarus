@@ -27,12 +27,10 @@ class HistorySection {
         ScrollTrigger.create({
             trigger: this.element,
             animation: this.timeline,
-
-            start: self => self.previous().end, //"+=29500", // 26100 
+            start: self => self.previous().end, 
             end: '50000px 100%',
             pin: true,
             pinSpacing: "margin",
-
             scrub: 1
         });
 
@@ -61,19 +59,23 @@ class HistorySection {
 
         gsap.set(this.textItems, {
             display: 'none',
-            autoAlpha: 0,
+            opacity: 0,
         })
 
         this.timeline.to(this.toLeftLine, {
             duration: 2,
             x: - (window.innerWidth + residualOffsetLeftLine),
-            opacity: 0.2
+            opacity: 0.2,
+            onStart: () => scrollContainer.classList.add('wc-transform'),
+            onComplete: () => scrollContainer.classList.remove('wc-transform')
         })
 
         this.timeline.to(this.toRightLine, {
             duration: 2,
             x: (window.innerWidth + residualOffsetRightLine),
-            opacity: 0.2
+            opacity: 0.2,
+            onStart: () => scrollContainer.classList.add('wc-transform'),
+            onComplete: () => scrollContainer.classList.remove('wc-transform')
         }, '<')
 
         this.timeline.to(this.toFillStar, {
@@ -88,12 +90,14 @@ class HistorySection {
 
         this.timeline.to(this.moveBg, {
             duration: 1.5,
-            yPercent: -100
+            yPercent: -100,
+            onStart: () => this.moveBg.classList.add('wc-transform')
         }, '-=1')
 
         this.timeline.to(this.moveBg, {
             duration: 1.1,
-            scale: 1
+            scale: 1,
+            onComplete: () => this.moveBg.classList.remove('wc-transform')
         })
 
         this.timeline.fromTo(this.moveBg, {
@@ -105,23 +109,27 @@ class HistorySection {
         gsap.utils.toArray(this.textItems).forEach(item => {
             this.timeline.to(item, {
                 display: 'block',
-                
-                opacity: 1
+                opacity: 1,
+                onStart: () => item.classList.add('wc-opacity'),
+                onComplete: () => item.classList.remove('wc-opacity')
             })
             this.timeline.to(item, {
                 display: 'none',
-                
-                opacity: 0
+                opacity: 0,
+                onStart: () => item.classList.add('wc-opacity'),
+                onComplete: () => item.classList.remove('wc-opacity')
             })
         })
 
         this.timeline.to(this.element, {
             duration: 1.6,
-            yPercent: -100
+            yPercent: -100,
+            onStart: () => item.classList.add('wc-transform'),
+            onComplete: () => item.classList.remove('wc-transform')
         })
 
         /*
-            z-index
+          * z-index
         */
         this.pinSpacer = this.element.parentElement
         let pinSpacerZindex = this.pinSpacer.style.zIndex
@@ -132,7 +140,6 @@ class HistorySection {
         this.timeline.call(_ => {
             this.pinSpacer.style.zIndex = -1;
         })
-        //
 
     }
 }

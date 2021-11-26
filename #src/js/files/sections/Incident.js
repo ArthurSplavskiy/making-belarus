@@ -17,13 +17,10 @@ class IncidentSection {
     }
 
     init () {
-        //console.log(this.scrollContainerBG)
 
         this.scroll()
         this.onScreen()
         this.splitDescr()
-        //this.hoverInitial()
-        //this.addEventListeners()
     }
 
     scroll () {
@@ -45,6 +42,8 @@ class IncidentSection {
                 x: 0,
             }, {
                 x: - (this.scrollContainer.scrollWidth - window.innerWidth),
+                onStart: () => this.scrollContainer.classList.add('wc-transform'),
+                onComplete: () => this.scrollContainer.classList.remove('wc-transform')
             })
         }
 
@@ -53,6 +52,8 @@ class IncidentSection {
             ease: Power3.easeIn,
         }, {
             xPercent: -20,
+            onStart: () => this.scrollContainerBG.classList.add('wc-transform'),
+            onComplete: () => this.scrollContainerBG.classList.remove('wc-transform')
         }, '<')
 
         this.timeline.to(this.element, {
@@ -60,7 +61,9 @@ class IncidentSection {
         })
 
         this.timeline.to(this.element, {
-            yPercent: -100
+            yPercent: -100,
+            onStart: () => this.element.classList.add('wc-transform'),
+            onComplete: () => this.element.classList.remove('wc-transform')
         })
 
         this.timeline.to(this.scrollIndicator, {
@@ -68,7 +71,7 @@ class IncidentSection {
         }, '<')
 
         /*
-            z-index
+          * z-index
         */
         this.pinSpacer = this.element.parentElement
         let pinSpacerZindex = this.pinSpacer.style.zIndex
@@ -79,15 +82,6 @@ class IncidentSection {
         this.timeline.call(_ => {
             this.pinSpacer.style.zIndex = -1;
         })
-        
-        //
-        // timeline.fromTo(historySection, {
-        //     duration: 0.05,
-        //     filter: 'brightness(0)'
-        // }, {
-        //     duration: 0.05,
-        //     filter: 'brightness(1)'
-        // }, '<')
 
     }
 

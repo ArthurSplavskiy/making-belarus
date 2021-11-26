@@ -16,8 +16,8 @@ let newer = require('gulp-newer');
 /*
   * Optimize
 */
-let webpcss = require('gulp-webpcss');
-let webphtml = require('gulp-webp-html');
+// let webpcss = require('gulp-webpcss');
+// let webphtml = require('gulp-webp-html');
 // ===
 
 let fonter = require('gulp-fonter');
@@ -72,7 +72,7 @@ function html() {
 		/*
 		  * Optimize
 		*/
-		.pipe(webphtml()) 
+		//.pipe(webphtml()) 
 		// ===
 
 		.pipe(dest(path.build.html))
@@ -98,12 +98,12 @@ function css() {
 		/*
 		  * Optimize
 		*/
-		.pipe(webpcss(
-			{
-				webpClass: "._webp",
-				noWebpClass: "._no-webp"
-			}
-		))
+		// .pipe(webpcss(
+		// 	{
+		// 		webpClass: "._webp",
+		// 		noWebpClass: "._no-webp"
+		// 	}
+		// ))
 		.pipe(dest(path.build.styles))
 		.pipe(clean_css())
 		.pipe(
@@ -129,7 +129,7 @@ function js() {
 				/*
 					* Optimize
 				*/
-				suffix: ".min",
+				//suffix: ".min",
 				// ===
 
 				extname: '.js'
@@ -145,11 +145,11 @@ function images() {
 		/*
 		  * Optimize
 		*/
-		.pipe(
-			rename({
-				extname: ".webp"
-			})
-		)
+		// .pipe(
+		// 	rename({
+		// 		extname: ".webp"
+		// 	})
+		// )
 		// ===
 
 		.pipe(dest(path.build.images))

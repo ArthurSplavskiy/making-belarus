@@ -39,7 +39,8 @@ a {
 }
 
 .scroll-container, .split-child {
-  will-change: transform;
+  //will-change: transform;
+  //transform-style: preserve-3d;
 }
 
 .split-parent {

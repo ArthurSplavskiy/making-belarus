@@ -42,19 +42,25 @@ class HeroSection {
             x: - (((window.innerWidth - (this.heroFirstLines[1].clientWidth / 2)) / 2) + (this.heroFirstLines[1].clientWidth /2 )), 
             ease: Power1.easeIn,
             duration: 2,
-            opacity: 0.2
+            opacity: 0.2,
+            onStart: () => this.heroFirstLines[0].classList.add('wc-transform'),
+            onComplete: () => this.heroFirstLines[0].classList.remove('wc-transform')
         }, '>')
         this.timeline.to(this.heroFirstLines[1], {
             x: ((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth,
             ease: Power1.easeIn,
             duration: 2,
-            opacity: 0.2
+            opacity: 0.2,
+            onStart: () => this.heroFirstLines[1].classList.add('wc-transform'),
+            onComplete: () => this.heroFirstLines[1].classList.remove('wc-transform')
         }, '<')
         this.timeline.to(this.heroFirstLines[2], {
             x: - (((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth),
             ease: Power1.easeIn,
             duration: 2,
-            opacity: 0.2
+            opacity: 0.2,
+            onStart: () => this.heroFirstLines[2].classList.add('wc-transform'),
+            onComplete: () => this.heroFirstLines[2].classList.remove('wc-transform')
         }, '<')
 
         this.timeline.fromTo(this.heroMap.children[0], {
@@ -64,12 +70,16 @@ class HeroSection {
             scale: 1,
             opacity: 1,
             ease: Power4.easeIn,
-            duration: 2.5
+            duration: 2.5,
+            onStart: () => this.heroMap.children[0].classList.add('wc-transform'),
+            onComplete: () => this.heroMap.children[0].classList.remove('wc-transform')
         }, '=-1.5')
 
         this.timeline.to(this.element, {
             duration: 2,
-            y: - (window.innerHeight)
+            y: - (window.innerHeight),
+            onStart: () => this.element.classList.add('wc-transform'),
+            onComplete: () => this.element.classList.remove('wc-transform')
         })
 
         this.timeline.fromTo(this.timelineSection, {
@@ -78,9 +88,11 @@ class HeroSection {
             filter: 'brightness(1)'
         }, '<')
 
+        /*
+          * z-index
+        */
         this.pinSpacer = this.element.parentElement
         let pinSpacerZindex = this.pinSpacer.style.zIndex
-
         this.timeline.to('.pin-spacer', {
             duration: 0,
             zIndex: pinSpacerZindex

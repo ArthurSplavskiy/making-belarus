@@ -31,10 +31,6 @@ class Header {
             body_lock_add(0, 'menu')
             
             this.menuTimeline.play()
-            
-            // this.menuTimeline.call(_ => {
-            //     this.element.classList.add('menu-open')
-            // })
 
             this.element.classList.add('menu-open')
 

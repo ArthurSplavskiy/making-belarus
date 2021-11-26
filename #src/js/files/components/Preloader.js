@@ -37,10 +37,6 @@ class Preloader {
             y: '10%',
             opacity: 1
         })
-
-        // gsap.utils.toArray(this.closeTitleLines.lines).forEach((el, index) => {
-            
-        // })
         
         this.lastSlideTimeline.pause()
 
@@ -148,7 +144,9 @@ class Preloader {
             this.lastSlideTimeline.reverse()
 
             this.timelineClose.to(this.element, {
-                yPercent: -100
+                yPercent: -100,
+                onStart: () => this.element.classList.add('wc-transform'),
+                onComplete: () => this.element.classList.remove('wc-transform')
             }, '+=1')
 
             this.timelineClose.call(_ => {

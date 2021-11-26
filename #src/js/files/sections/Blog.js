@@ -61,7 +61,9 @@ class BlogSection {
         });
 
         this.scrollerSecion = this.timeline.to(this.element, {
-            y: - (this.element.scrollHeight) // - window.innerHeight
+            y: - (this.element.scrollHeight),
+            onStart: () => this.element.classList.add('wc-transform'),
+            onComplete: () => this.element.classList.remove('wc-transform')
         })
 
         this.timeline.fromTo(this.scrollContainerBG, {

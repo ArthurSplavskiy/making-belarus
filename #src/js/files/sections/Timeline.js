@@ -43,12 +43,16 @@ class TimelineSection {
 
                 timeline.to(rootElement, {
                     duration: 0.1,
-                    y: - (rootElement.scrollHeight + 200)
+                    y: - (rootElement.scrollHeight + 200),
+                    onStart: () => rootElement.classList.add('wc-transform'),
+                    onComplete: () => rootElement.classList.remove('wc-transform')
                 })
 
                 timeline.to(scrollContainerBG, {
                     duration: 0.1,
                     y: 1000,
+                    onStart: () => scrollContainerBG.classList.add('wc-transform'),
+                    onComplete: () => scrollContainerBG.classList.remove('wc-transform')
                 }, '<')
 
             },
@@ -62,14 +66,12 @@ class TimelineSection {
                 const parallaxImageText = document.querySelectorAll('.parallax-item__img-text')
                 const parallaxImages = document.querySelectorAll('.parallax-item__img')
 
-                const historySection = document.querySelector('.history-section')
-
                 ScrollTrigger.create({
                     trigger: rootElement,
                     animation: timeline,
-                    start: self => self.previous().end,//"+=8000",
+                    start: self => self.previous().end,
                     end: '30000px 100%',
-                    pin: true, // add
+                    pin: true,
                     pinSpacing: "margin",
                     scrub: 1
                 });
@@ -78,11 +80,13 @@ class TimelineSection {
                     duration: 0,
                     fill: '#ffffff'
                 })
-                
+
                 timeline.fromTo(scrollContainer, {
                     x: 0,
                 }, {
                     x: - (scrollContainer.scrollWidth - window.innerWidth),
+                    onStart: () => scrollContainer.classList.add('wc-transform'),
+                    onComplete: () => scrollContainer.classList.remove('wc-transform')
                 })
         
                 timeline.fromTo(scrollContainerBG, {
@@ -90,13 +94,19 @@ class TimelineSection {
                     ease: Power3.easeIn,
                 }, {
                     xPercent: 25,
+                    onStart: () => scrollContainerBG.classList.add('wc-transform'),
+                    onComplete: () => scrollContainerBG.classList.remove('wc-transform')
                 }, '<')
 
                 timeline.to(parallaxImageText, {
-                    x: 40
+                    x: 40,
+                    onStart: () => parallaxImageText.classList.add('wc-transform'),
+                    onComplete: () => parallaxImageText.classList.remove('wc-transform')
                 }, '<')
                 timeline.to(parallaxImages, {
-                    x: -40
+                    x: -40,
+                    onStart: () => parallaxImages.classList.add('wc-transform'),
+                    onComplete: () => parallaxImages.classList.remove('wc-transform')
                 }, '<')
 
                 timeline.to(rootElement, {
@@ -105,7 +115,9 @@ class TimelineSection {
 
                 timeline.to(rootElement, {
                     duration: 0.1,
-                    yPercent: -100
+                    yPercent: -100,
+                    onStart: () => rootElement.classList.add('wc-transform'),
+                    onComplete: () => rootElement.classList.remove('wc-transform')
                 })
 
             }

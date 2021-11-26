@@ -1,6 +1,5 @@
 @@include('files/utils/body-lock.js', {})
 @@include('files/utils/test-webp.js', {})
-@@include('files/utils/svg-check.js', {})
 
 @@include('files/classes/Observer.js', {})
 @@include('files/classes/Split.js', {})

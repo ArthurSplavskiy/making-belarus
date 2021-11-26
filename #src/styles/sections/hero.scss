@@ -5,6 +5,10 @@
     z-index: z('hero-section');
     box-shadow: 0px 130px 160px rgba(0, 0, 0, 0.1);
 
+    &.animated {
+        // will-change:
+    }
+
     &__wrapper {
         position: relative;
         height: 100%;
@@ -50,6 +54,11 @@
            top: 50%;
            left: 50%;
            transform: translate(-50%, -50%);
+
+           img {
+               //transform: translateZ(0.1);
+               //will-change: transform;
+           }
         }
 
         &__line {
