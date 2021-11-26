@@ -108,14 +108,6 @@ class TimelineSection {
                     yPercent: -100
                 })
 
-                timeline.fromTo(historySection, {
-                    duration: 0.05,
-                    filter: 'brightness(0)'
-                }, {
-                    duration: 0.05,
-                    filter: 'brightness(1)'
-                }, '<')
-
             }
 
         })

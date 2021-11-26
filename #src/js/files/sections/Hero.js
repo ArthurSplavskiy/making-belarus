@@ -59,7 +59,7 @@ class HeroSection {
 
         this.timeline.fromTo(this.heroMap.children[0], {
             scale: 0,
-            opacity: 0.1
+            opacity: 0.4
         }, {
             scale: 1,
             opacity: 1,

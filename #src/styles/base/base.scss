@@ -24,7 +24,7 @@ body {
   overscroll-behavior: none;
 
   * {
-    cursor: none!important;
+    cursor: none;
   }
 
   &._lock, &.menu-lock {
@@ -56,5 +56,13 @@ a {
 
   &.loaded {
     opacity: 1;
+  }
+}
+
+._cursor-pointer {
+  cursor: pointer;
+
+  * {
+    cursor: pointer;
   }
 }
