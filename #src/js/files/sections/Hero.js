@@ -63,7 +63,7 @@ class HeroSection {
             onComplete: () => this.heroFirstLines[2].classList.remove('wc-transform')
         }, '<')
 
-        this.timeline.fromTo(this.heroMap, {
+        this.timeline.fromTo(this.heroMap.children[0], {
             scale: 0,
             opacity: 0.4
         }, {
@@ -71,8 +71,8 @@ class HeroSection {
             opacity: 1,
             ease: Power4.easeIn,
             duration: 2.5,
-            onStart: () => this.heroMap.classList.add('wc-transform'),
-            onComplete: () => this.heroMap.classList.remove('wc-transform')
+            onStart: () => this.heroMap.children[0].classList.add('wc-transform'),
+            onComplete: () => this.heroMap.children[0].classList.remove('wc-transform')
         }, '=-1.5')
 
         this.timeline.to(this.element, {
@@ -91,16 +91,15 @@ class HeroSection {
         /*
           * z-index
         */
-        this.pinSpacer = this.element.parentElement
-        let pinSpacerZindex = this.pinSpacer.style.zIndex
-        this.timeline.to('.pin-spacer', {
-            duration: 0,
-            zIndex: pinSpacerZindex
-        })
-
-        this.timeline.call(_ => {
-            this.pinSpacer.style.zIndex = -1;
-        })
+        // this.pinSpacer = this.element.parentElement
+        // let pinSpacerZindex = this.pinSpacer.style.zIndex
+        // this.timeline.to('.pin-spacer', {
+        //     duration: 0,
+        //     zIndex: pinSpacerZindex
+        // })
+        // this.timeline.call(_ => {
+        //     this.pinSpacer.style.zIndex = -1;
+        // })
 
     }
 
