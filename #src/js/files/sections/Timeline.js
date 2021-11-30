@@ -14,7 +14,7 @@ class TimelineSection {
 
     init () {
         this.scroll()
-        this.Animation()
+        //this.Animation()
     }
 
     scroll () {
@@ -98,16 +98,16 @@ class TimelineSection {
                     onComplete: () => scrollContainerBG.classList.remove('wc-transform')
                 }, '<')
 
-                timeline.to(parallaxImageText, {
-                    x: 40,
-                    onStart: () => parallaxImageText.classList.add('wc-transform'),
-                    onComplete: () => parallaxImageText.classList.remove('wc-transform')
-                }, '<')
-                timeline.to(parallaxImages, {
-                    x: -40,
-                    onStart: () => parallaxImages.classList.add('wc-transform'),
-                    onComplete: () => parallaxImages.classList.remove('wc-transform')
-                }, '<')
+                // timeline.to(parallaxImageText, {
+                //     x: 40,
+                //     onStart: () => parallaxImageText.classList.add('wc-transform'),
+                //     onComplete: () => parallaxImageText.classList.remove('wc-transform')
+                // }, '<')
+                // timeline.to(parallaxImages, {
+                //     x: -40,
+                //     onStart: () => parallaxImages.classList.add('wc-transform'),
+                //     onComplete: () => parallaxImages.classList.remove('wc-transform')
+                // }, '<')
 
                 timeline.to(rootElement, {
                     duration: 0.02,

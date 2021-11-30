@@ -54,7 +54,8 @@ class HistorySection {
         })
 
         gsap.set(this.content, {
-            yPercent: -200
+            yPercent: -200,
+            z: '1px'
         })
 
         gsap.set(this.textItems, {
@@ -66,16 +67,16 @@ class HistorySection {
             duration: 2,
             x: - (window.innerWidth + residualOffsetLeftLine),
             opacity: 0.2,
-            onStart: () => scrollContainer.classList.add('wc-transform'),
-            onComplete: () => scrollContainer.classList.remove('wc-transform')
+            // onStart: () => this.toLeftLine.classList.add('wc-transform'),
+            // onComplete: () => this.toLeftLine.classList.remove('wc-transform')
         })
 
         this.timeline.to(this.toRightLine, {
             duration: 2,
             x: (window.innerWidth + residualOffsetRightLine),
             opacity: 0.2,
-            onStart: () => scrollContainer.classList.add('wc-transform'),
-            onComplete: () => scrollContainer.classList.remove('wc-transform')
+            // onStart: () => this.toRightLine.classList.add('wc-transform'),
+            // onComplete: () => this.toRightLine.classList.remove('wc-transform')
         }, '<')
 
         this.timeline.to(this.toFillStar, {
@@ -92,13 +93,13 @@ class HistorySection {
             duration: 1.5,
             yPercent: -100,
             onStart: () => this.moveBg.classList.add('wc-transform')
-        }, '-=1')
+        }, '-=2')
 
         this.timeline.to(this.moveBg, {
             duration: 1.1,
             scale: 1,
             onComplete: () => this.moveBg.classList.remove('wc-transform')
-        })
+        }, '-=0.5')
 
         this.timeline.fromTo(this.moveBg, {
             filter: 'brightness(1)'
@@ -124,8 +125,8 @@ class HistorySection {
         this.timeline.to(this.element, {
             duration: 1.6,
             yPercent: -100,
-            onStart: () => item.classList.add('wc-transform'),
-            onComplete: () => item.classList.remove('wc-transform')
+            onStart: () => this.element.classList.add('wc-transform'),
+            onComplete: () => this.element.classList.remove('wc-transform')
         })
 
         /*

@@ -2,7 +2,7 @@ class AsyncLoad {
     constructor (element) {
         this.element = element
 
-        this.createObserver()
+        //this.createObserver()
     }
 
     createObserver () {
