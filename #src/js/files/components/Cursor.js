@@ -4,7 +4,8 @@ class Cursor {
         this.pageElement = document.querySelector('.page-cursor')
         this.cursorSlider = this.element.querySelector('.c-cursor__slider')
 
-        this.cursorContainer = document.querySelector('.page-menu .swiper-wrapper')
+        this.cursorContainer = document.querySelector('.page-menu .swiper')
+        this.controlsContainer = document.querySelector('.page-menu__slider-controls')
 
         this.activeCursorLinks = document.querySelectorAll('._cursor-pointer')
 
@@ -17,7 +18,17 @@ class Cursor {
         this.element.style.left = x + 'px';
         this.element.style.top = y + 'px';
 
+        // gsap.to(this.element, .5, {
+        //     top:  y,
+        //     left: x
+        // })
+
         if(this.element.classList.contains('above-slider')) {
+            gsap.to(this.element, .5, {
+                top:  y,
+                left: x
+            })
+
             if(x < (window.innerWidth / 2)) {
                 if(this.cursorSlider.classList.contains('right')) {
                     this.cursorSlider.classList.remove('right')
@@ -28,6 +39,7 @@ class Cursor {
                 }
             }
         }
+        
     }
 
     setCursorSwiper () {
@@ -55,6 +67,9 @@ class Cursor {
         document.addEventListener('mousemove', this.initCursor.bind(this));
         this.cursorContainer.addEventListener('mouseenter', this.setCursorSwiper.bind(this));
         this.cursorContainer.addEventListener('mouseleave', this.removeCursorSwiper.bind(this));
+
+        this.controlsContainer.addEventListener('mouseenter', this.removeCursorSwiper.bind(this));
+        this.controlsContainer.addEventListener('mouseleave', this.setCursorSwiper.bind(this));
 
         this.activeCursorLinks.forEach(link => {
             link.addEventListener('mouseenter', this.setCursorPointer.bind(this));

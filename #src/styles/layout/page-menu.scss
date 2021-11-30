@@ -34,6 +34,10 @@
         width: 100%;
         min-width: 0;
         color: $color-white;
+        cursor: grab;
+        * {
+            cursor: grab;
+        }
 
         .swiper-wrapper {
             @include media('<=bigPhone') {
@@ -45,6 +49,13 @@
                     min-width: 100%;
                 }
             }
+
+            &.grabbing {
+                cursor: grabbing;
+                * {
+                    cursor: grabbing;
+                }
+            }
         }
     }
 
@@ -52,6 +63,10 @@
         display: flex;
         align-items: center;
         margin-top: 4rem;
+        cursor: none;
+        * {
+            cursor: none;
+        }
 
         @include media('<=bigPhone') {
             display: none;
@@ -122,6 +137,33 @@
                 //         transform:  scale(0.1) rotate(-180deg);
                 //     }
                 // }
+                .page-menu__card-title {
+                    
+                    // .split-child {
+                    //     & > div {
+                    //         & > div {
+                    //             transition: transform 0.5s ease;
+                    //             transform: translate(0, -100%);
+                    //         }
+                    //     }
+                    // }
+                    .native {
+                        & > div {
+                            & > div {
+                                transform: translate(0, -100%)!important;
+                            }
+                        }
+                    }
+                    .clone {
+                        & > div {
+                            & > div {
+                                transform: translate(0)!important;
+                            }
+                        }
+                    }
+
+                }
+
             }
         }
 
@@ -163,6 +205,39 @@
 
             width: 100%;
             text-align: center;
+            position: relative;
+
+            .split-child {
+                position: absolute!important;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+
+                .clone, .native {
+                    & > div {
+                        overflow: hidden;
+                        & > div {
+                            transition: transform 1.2s $easy-out-expo;
+                        }
+                    }
+                }
+                .clone {
+                    & > div {
+                        & > div {
+                            transform: translate(0, 100%)!important;
+                        }
+                    }
+                }
+
+            }
+
+            .split-child {
+                & > div {
+                    overflow: hidden;
+                }
+            }
+
         }
     }
 }
