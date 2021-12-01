@@ -2,8 +2,6 @@ class Animation {
     constructor () {
         this.animationTextIn = this.animationTextIn
         this.animationTextOut = this.animationTextOut
-        // this.fadeIn = this.fadeIn
-        // this.fadeOut = this.fadeOut
     }
 
     animationTextIn (text) {

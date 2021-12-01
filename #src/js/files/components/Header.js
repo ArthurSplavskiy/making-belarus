@@ -54,7 +54,7 @@ class Header {
         })
         this.menuTimeline.to(this.slider, {
             duration: 0.5,
-            autoAlpha: 1
+            opacity: 1
         })
         this.menuTimeline.fromTo(this.titleLines.chars, {
             y: '100%',
@@ -69,7 +69,7 @@ class Header {
         this.menuTimeline.pause()
 
         gsap.set(this.pageMenu, { y: '-100%' })
-        gsap.set(this.slider, { autoAlpha: 0 })
+        gsap.set(this.slider, { opacity: 0 })
 
         this.burger.onclick = event => this.menuOpen(event)
     }
