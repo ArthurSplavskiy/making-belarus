@@ -5,13 +5,18 @@ class HistorySection {
         this.toLeftLine = this.element.querySelectorAll('.line-container:nth-child(odd) .line')
         this.toRightLine = this.element.querySelectorAll('.line-container:nth-child(even) .line')
 
-        this.toStrokeStar = this.element.querySelectorAll('.line .stroke img')
-        this.toFillStar = this.element.querySelectorAll('.line .fill img')
+        // this.toStrokeStar = this.element.querySelectorAll('.line .stroke img')
+        // this.toFillStar = this.element.querySelectorAll('.line .fill img')
 
         this.moveBg = this.element.querySelector('.move-bg')
 
         this.content = this.element.querySelector('.content')
         this.textItems = this.content.querySelectorAll('.text-item')
+
+        this.timelineSizes = {
+            endDesktop: 50000,
+            endMobile: 12000
+        }
 
         this.init()
     }
@@ -28,10 +33,11 @@ class HistorySection {
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end, 
-            end: '50000px 100%',
+            end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
             pin: true,
             pinSpacing: "margin",
-            scrub: 1
+            scrub: 1,
+            invalidateOnRefresh: true
         });
 
         let maxLeftWidth = Array.from(this.toLeftLine).map(line => line.clientWidth).reduce((p, n) => p > n ? p : n)
@@ -65,7 +71,7 @@ class HistorySection {
 
         this.timeline.to(this.toLeftLine, {
             duration: 2,
-            x: - (window.innerWidth + residualOffsetLeftLine),
+            x: () => - (window.innerWidth + residualOffsetLeftLine),
             opacity: 0.2,
             // onStart: () => this.toLeftLine.classList.add('wc-transform'),
             // onComplete: () => this.toLeftLine.classList.remove('wc-transform')
@@ -73,21 +79,21 @@ class HistorySection {
 
         this.timeline.to(this.toRightLine, {
             duration: 2,
-            x: (window.innerWidth + residualOffsetRightLine),
+            x: () => (window.innerWidth + residualOffsetRightLine),
             opacity: 0.2,
             // onStart: () => this.toRightLine.classList.add('wc-transform'),
             // onComplete: () => this.toRightLine.classList.remove('wc-transform')
         }, '<')
 
-        this.timeline.to(this.toFillStar, {
-            duration: 2,
-            rotate: '100deg'
-        }, '<')
+        // this.timeline.to(this.toFillStar, {
+        //     duration: 2,
+        //     rotate: '100deg'
+        // }, '<')
 
-        this.timeline.to(this.toStrokeStar, {
-            duration: 2,
-            rotate: '-100deg'
-        }, '<')
+        // this.timeline.to(this.toStrokeStar, {
+        //     duration: 2,
+        //     rotate: '-100deg'
+        // }, '<')
 
         this.timeline.to(this.moveBg, {
             duration: 1.5,
@@ -142,5 +148,13 @@ class HistorySection {
         //     this.pinSpacer.style.zIndex = -1;
         // })
 
+    }
+
+    onResize () {
+        if(window.innerWidth <= 768) {
+            this.timelineEnd = this.timelineSizes.endMobile
+        } else {
+            this.timelineEnd = this.timelineSizes.endDesktop
+        }
     }
 }

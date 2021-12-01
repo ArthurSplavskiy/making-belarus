@@ -13,6 +13,11 @@ class IncidentSection {
 
         this.split = new Split()
 
+        this.timelineSizes = {
+            endDesktop: 55000,
+            endMobile: 16000
+        }
+
         this.init()
     }
 
@@ -31,17 +36,18 @@ class IncidentSection {
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end,
-            end: '55000px 100%',
+            end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
             pin: true, 
             pinSpacing: "margin",
             scrub: 1,
+            invalidateOnRefresh: true
         });
 
         if(this.scrollContainer.scrollWidth > window.innerWidth) {
             this.timeline.fromTo(this.scrollContainer, {
                 x: 0,
             }, {
-                x: - (this.scrollContainer.scrollWidth - window.innerWidth),
+                x: () => - (this.scrollContainer.scrollWidth - window.innerWidth),
                 onStart: () => this.scrollContainer.classList.add('wc-transform'),
                 onComplete: () => this.scrollContainer.classList.remove('wc-transform')
             })
@@ -105,7 +111,13 @@ class IncidentSection {
     }
 
     onResize () {
-        this.splitDescription.revert()
+        if(window.innerWidth <= 768) {
+            this.timelineEnd = this.timelineSizes.endMobile
+        } else {
+            this.timelineEnd = this.timelineSizes.endDesktop
+        }
+
+        //this.splitDescription.revert()
     }
 
 }

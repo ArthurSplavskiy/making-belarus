@@ -382,7 +382,7 @@ html {
 body {
   font-family: "Manrope";
   cursor: none;
-  background: #9F1307;
+  background: #000;
   -ms-scroll-chaining: none;
       overscroll-behavior: none;
 }
@@ -1422,6 +1422,7 @@ a {
   color: #fff;
   height: 100vh;
   width: 100%;
+  background: #9F1307;
   position: fixed;
   top: 0;
   left: 0;
@@ -1476,6 +1477,7 @@ a {
 }
 
 .footer__content .container .box .social-link {
+  overflow: hidden;
   text-transform: uppercase;
 }
 
@@ -1594,6 +1596,12 @@ a {
           transform: translate(-50%, -50%);
 }
 
+.hero-section .hero-composition__map img {
+  -webkit-transform: translateZ(0.1);
+          transform: translateZ(0.1);
+  will-change: transform, opacity;
+}
+
 .hero-section .hero-composition__line {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1681,9 +1689,6 @@ a {
   top: 50%;
   left: calc((100vw - 168.8rem) / 2);
   padding-right: calc((100vw - 168.8rem) / 2);
-  -webkit-transform: translate(0, -50%);
-      -ms-transform: translate(0, -50%);
-          transform: translate(0, -50%);
 }
 
 .timeline-section .scroll-container__bg span {

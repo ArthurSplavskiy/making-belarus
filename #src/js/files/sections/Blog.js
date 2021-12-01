@@ -16,13 +16,18 @@ class BlogSection {
         this.split = new Split()
         this.animation = new Animation()
 
+        this.timelineSizes = {
+            endDesktop: 70000,
+            endMobile: 20000
+        }
+
         this.init()
     }
 
     init () {
 
         this.scroll()
-        this.onScreen()
+        //this.onScreen()
         this.descrAnimation()
         this.footerLinksSplit()
     }
@@ -34,9 +39,10 @@ class BlogSection {
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end,
-            end: '70000px 100%',
+            end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
             pin: true,
             scrub: 1,
+            invalidateOnRefresh: true,
 
             onEnter: () => {
 
@@ -61,17 +67,17 @@ class BlogSection {
         });
 
         this.scrollerSecion = this.timeline.to(this.element, {
-            y: - (this.element.scrollHeight),
+            y: () => - (this.element.scrollHeight),
             onStart: () => this.element.classList.add('wc-transform'),
             onComplete: () => this.element.classList.remove('wc-transform')
         })
 
-        this.timeline.fromTo(this.scrollContainerBG, {
-            yPercent: 0,
-            ease: Power3.easeIn,
-        }, {
-            yPercent: 10,
-        }, '<')
+        // this.timeline.fromTo(this.scrollContainerBG, {
+        //     yPercent: 0,
+        //     ease: Power3.easeIn,
+        // }, {
+        //     yPercent: 10,
+        // }, '<')
 
         /* 
           * z-index
@@ -126,7 +132,7 @@ class BlogSection {
         }, { threshold: 1 })
 
         this.descriptions.forEach(el => {
-            this.observer.observe(el)
+            //this.observer.observe(el)
         })
 
     }
@@ -167,13 +173,19 @@ class BlogSection {
     }
 
     onResize () {
-        this.descriptionsSplitParent.revert()
-        this.descriptionsSplitChild.revert()
+        if(window.innerWidth <= 768) {
+            this.timelineEnd = this.timelineSizes.endMobile
+        } else {
+            this.timelineEnd = this.timelineSizes.endDesktop
+        }
 
-        this.footerLinksSplitChild.revert()
-        this.footerLinksSplitParent.revert()
+        // this.descriptionsSplitParent.revert()
+        // this.descriptionsSplitChild.revert()
 
-        this.descrAnimation()
+        // this.footerLinksSplitChild.revert()
+        // this.footerLinksSplitParent.revert()
+
+        // this.descrAnimation()
     }
     
 }

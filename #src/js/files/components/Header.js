@@ -137,6 +137,7 @@ class Header {
             type: "lines,words,chars",
             linesClass: "split-child"
         })
+        console.log(this.titleLines)
         // this.titleParentLines = this.split.splitText(this.cardsTitle, {
         //     type: "lines",
         //     linesClass: "split-parent"
@@ -192,8 +193,10 @@ class Header {
     }
 
     onResize () {
-        this.titleLines.revert()
-        this.titleParentLines.revert()
+        // if(this.titleLines) {
+        //     this.titleLines.revert()
+        // }
+        //this.titleParentLines.revert()
     }
 
 }

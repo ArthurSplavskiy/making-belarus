@@ -1,17 +1,9 @@
 class App {
     constructor () {
         this.addEventListeners()
-        this.onResize()
     }
 
     init () {
-        /*
-          * Components
-        */
-        this.header = new Header()
-        this.animation = new Animation()
-        this.cursor = new Cursor()
-
         /*
           * Elements
         */
@@ -19,6 +11,16 @@ class App {
         this.$timelineSection = document.querySelector('.timeline-section')
         this.$histotySection = document.querySelector('.history-section')
         this.$incidentSection = document.querySelector('.incident-section')
+        this.$header = document.querySelector('header.header')
+
+        /*
+          * Components
+        */
+        if (this.$header) {
+            this.header = new Header()
+        }
+        this.animation = new Animation()
+        this.cursor = new Cursor()
 
         /*
           * Sections
@@ -43,6 +45,7 @@ class App {
     }
 
     pageLoad () {
+        this.onResize()
 
         /*
           * Elements
@@ -69,30 +72,48 @@ class App {
         if (this.preloader) {
             this.preloader.init()
         }
-        
     }
 
     contentDomLoad () {
         this.init()
-
+        
         this.removeEventListeners()
     }
 
     onResize () {
 
-        if (this.blogSection) {
-            this.blogSection.onResize()
-        }
-        if (this.incidentSection) {
-            this.incidentSection.onResize()
-        }
         if (this.header) {
             this.header.onResize()
         }
         if (this.preloader) {
             this.preloader.onResize()
         }
+        if (this.heroSection) {
+            this.heroSection.onResize()
+        }
+        if (this.timelineSection) {
+            this.timelineSection.onResize()
+        }
+        if (this.historySection) {
+            this.historySection.onResize()
+        }
+        if (this.incidentSection) {
+            this.incidentSection.onResize()
+        }
+        if (this.blogSection) {
+            this.blogSection.onResize()
+        }
+
+        ScrollTrigger.refresh(true)
+        //ScrollTrigger.update()
+        ScrollTrigger.addEventListener("refreshInit", () => {
+            console.log('refresh START')
+        });
+        ScrollTrigger.addEventListener('refresh', () => {
+            console.log('refresh END')
+        })
         
+        console.log(window.pageYOffset)
     }
 
     addEventListeners () {

@@ -11,6 +11,11 @@ class HeroSection {
         this.heroFirstDescriptions = this.heroComposition.querySelectorAll('.hero-composition__description')
         this.heroMap = this.heroComposition.querySelector('.hero-composition__map')
 
+        this.timelineSizes = {
+            endDesktop: 8000,
+            endMobile: 4000
+        }
+
         this.init()
     }
 
@@ -25,10 +30,11 @@ class HeroSection {
             trigger: this.element,
             animation: this.timeline,
             start: "top top",
-            end: () => '+=8000',
+            end: () => `+=${this.timelineEnd || this.timelineSizes.endDesktop}`,
             pin: true,
             pinSpacing: "margin",
-            scrub: 1
+            scrub: 1,
+            invalidateOnRefresh: true
         });
 
         this.timeline.fromTo(this.heroFirstDescriptions, {
@@ -39,28 +45,28 @@ class HeroSection {
         })
 
         this.timeline.to(this.heroFirstLines[0], {
-            x: - (((window.innerWidth - (this.heroFirstLines[1].clientWidth / 2)) / 2) + (this.heroFirstLines[1].clientWidth /2 )), 
+            x: () => - (((window.innerWidth - (this.heroFirstLines[1].clientWidth / 2)) / 2) + (this.heroFirstLines[1].clientWidth /2 )), 
             ease: Power1.easeIn,
             duration: 2,
             opacity: 0.2,
-            onStart: () => this.heroFirstLines[0].classList.add('wc-transform'),
-            onComplete: () => this.heroFirstLines[0].classList.remove('wc-transform')
+            // onStart: () => this.heroFirstLines[0].classList.add('wc-transform'),
+            // onComplete: () => this.heroFirstLines[0].classList.remove('wc-transform')
         }, '>')
         this.timeline.to(this.heroFirstLines[1], {
-            x: ((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth,
+            x: () => ((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth,
             ease: Power1.easeIn,
             duration: 2,
             opacity: 0.2,
-            onStart: () => this.heroFirstLines[1].classList.add('wc-transform'),
-            onComplete: () => this.heroFirstLines[1].classList.remove('wc-transform')
+            // onStart: () => this.heroFirstLines[1].classList.add('wc-transform'),
+            // onComplete: () => this.heroFirstLines[1].classList.remove('wc-transform')
         }, '<')
         this.timeline.to(this.heroFirstLines[2], {
-            x: - (((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth),
+            x: () => - (((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth),
             ease: Power1.easeIn,
             duration: 2,
             opacity: 0.2,
-            onStart: () => this.heroFirstLines[2].classList.add('wc-transform'),
-            onComplete: () => this.heroFirstLines[2].classList.remove('wc-transform')
+            // onStart: () => this.heroFirstLines[2].classList.add('wc-transform'),
+            // onComplete: () => this.heroFirstLines[2].classList.remove('wc-transform')
         }, '<')
 
         this.timeline.fromTo(this.heroMap.children[0], {
@@ -71,15 +77,13 @@ class HeroSection {
             opacity: 1,
             ease: Power4.easeIn,
             duration: 2.5,
-            onStart: () => this.heroMap.children[0].classList.add('wc-transform'),
-            onComplete: () => this.heroMap.children[0].classList.remove('wc-transform')
         }, '=-1.5')
 
         this.timeline.to(this.element, {
             duration: 2,
-            y: - (window.innerHeight),
-            onStart: () => this.element.classList.add('wc-transform'),
-            onComplete: () => this.element.classList.remove('wc-transform')
+            y: () => - (window.innerHeight),
+            // onStart: () => this.element.classList.add('wc-transform'),
+            // onComplete: () => this.element.classList.remove('wc-transform')
         })
 
         this.timeline.fromTo(this.timelineSection, {
@@ -101,6 +105,14 @@ class HeroSection {
         //     this.pinSpacer.style.zIndex = -1;
         // })
 
+    }
+
+    onResize () {
+        if(window.innerWidth <= 768) {
+            this.timelineEnd = this.timelineSizes.endMobile
+        } else {
+            this.timelineEnd = this.timelineSizes.endDesktop
+        }
     }
 
 }

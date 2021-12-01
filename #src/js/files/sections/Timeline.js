@@ -6,8 +6,14 @@ class TimelineSection {
         this.elementScrollBg = this.element.querySelector('.scroll-container__bg')
         this.images = this.element.querySelectorAll('.parallax-item__img')
         this.text = this.element.querySelectorAll('.parallax-item_text p')
+        this.scrollIndicatorArrow = document.querySelectorAll('.scroll-indicator path, .scroll-indicator rect')
         
         this.split = new Split()
+
+        this.timelineSizes = {
+            endDesktop: 30000,
+            endMobile: 8000
+        }
 
         this.init()
     }
@@ -19,83 +25,72 @@ class TimelineSection {
 
     scroll () {
 
+        this.timeline = gsap.timeline({ defaults: {ease: 'none'} })
+
+        ScrollTrigger.create({
+            trigger: this.element,
+            animation: this.timeline,
+            start: self => self.previous().end,
+            end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
+            pin: true, 
+            scrub: 1,
+            invalidateOnRefresh: true
+        });
+
         ScrollTrigger.matchMedia({
 
-            "(max-width: 768px)": function() {
-                const timeline = gsap.timeline({ defaults: {ease: 'none'} })
-                const rootElement = document.querySelector('.timeline-section')
-                const scrollContainerBG = rootElement.querySelector('.scroll-container__bg')
-
-                ScrollTrigger.create({
-                    trigger: rootElement,
-                    animation: timeline,
-                    start: self => self.previous().end,
-                    end: '30000px 100%',
-                    pin: true, 
-                    scrub: 1,
-                });
-
-                gsap.set(scrollContainerBG, {
+            "(max-width: 768px)": () => {
+                
+                gsap.set(this.elementScrollBg, {
                     xPercent: -50,
                     yPercent: -50,
                     rotate: '90deg'
                 })
 
-                timeline.to(rootElement, {
+                this.timeline.to(this.element, {
                     duration: 0.1,
-                    y: - (rootElement.scrollHeight + 200),
-                    onStart: () => rootElement.classList.add('wc-transform'),
-                    onComplete: () => rootElement.classList.remove('wc-transform')
+                    y: () => - (this.element.scrollHeight + 200),
+                    onStart: () => this.element.classList.add('wc-transform'),
+                    onComplete: () => this.element.classList.remove('wc-transform')
                 })
 
-                timeline.to(scrollContainerBG, {
+                this.timeline.to(this.elementScrollBg, {
                     duration: 0.1,
                     y: 1000,
-                    onStart: () => scrollContainerBG.classList.add('wc-transform'),
-                    onComplete: () => scrollContainerBG.classList.remove('wc-transform')
+                    onStart: () => this.elementScrollBg.classList.add('wc-transform'),
+                    onComplete: () => this.elementScrollBg.classList.remove('wc-transform')
                 }, '<')
 
             },
 
-            "(min-width: 769px)": function() {
-                const timeline = gsap.timeline({ defaults: {ease: 'none'} })
-                const rootElement = document.querySelector('.timeline-section')
-                const scrollContainer = document.querySelector('.scroll-container')
-                const scrollContainerBG = document.querySelector('.scroll-container__bg')
-                const scrollIndicatorArrow = document.querySelectorAll('.scroll-indicator path, .scroll-indicator rect')
-                const parallaxImageText = document.querySelectorAll('.parallax-item__img-text')
-                const parallaxImages = document.querySelectorAll('.parallax-item__img')
+            "(min-width: 769px)": () => {
 
-                ScrollTrigger.create({
-                    trigger: rootElement,
-                    animation: timeline,
-                    start: self => self.previous().end,
-                    end: '30000px 100%',
-                    pin: true,
-                    pinSpacing: "margin",
-                    scrub: 1
-                });
+                gsap.set(this.elementScrollBg, {
+                    xPercent: 0,
+                    yPercent: -50,
+                    rotate: '0'
+                })
                 
-                timeline.to(scrollIndicatorArrow, {
+                this.timeline.to(this.scrollIndicatorArrow, {
                     duration: 0,
                     fill: '#ffffff'
                 })
 
-                timeline.fromTo(scrollContainer, {
+                this.timeline.fromTo(this.elementScroll, {
                     x: 0,
                 }, {
-                    x: - (scrollContainer.scrollWidth - window.innerWidth),
-                    onStart: () => scrollContainer.classList.add('wc-transform'),
-                    onComplete: () => scrollContainer.classList.remove('wc-transform')
+                    x: () => - (this.elementScroll.scrollWidth - window.innerWidth),
+                    onStart: () => this.elementScroll.classList.add('wc-transform'),
+                    onComplete: () => this.elementScroll.classList.remove('wc-transform')
                 })
         
-                timeline.fromTo(scrollContainerBG, {
+                this.timeline.fromTo(this.elementScrollBg, {
                     xPercent: 0,
                     ease: Power3.easeIn,
                 }, {
                     xPercent: 25,
-                    onStart: () => scrollContainerBG.classList.add('wc-transform'),
-                    onComplete: () => scrollContainerBG.classList.remove('wc-transform')
+                    onStart: () => this.elementScrollBg.classList.add('wc-transform'),
+                    onComplete: () => this.elementScrollBg.classList.remove('wc-transform')
                 }, '<')
 
                 // timeline.to(parallaxImageText, {
@@ -109,15 +104,15 @@ class TimelineSection {
                 //     onComplete: () => parallaxImages.classList.remove('wc-transform')
                 // }, '<')
 
-                timeline.to(rootElement, {
+                this.timeline.to(this.element, {
                     duration: 0.02,
                 })
 
-                timeline.to(rootElement, {
+                this.timeline.to(this.element, {
                     duration: 0.1,
                     yPercent: -100,
-                    onStart: () => rootElement.classList.add('wc-transform'),
-                    onComplete: () => rootElement.classList.remove('wc-transform')
+                    onStart: () => this.element.classList.add('wc-transform'),
+                    onComplete: () => this.element.classList.remove('wc-transform')
                 })
 
             }
@@ -149,6 +144,14 @@ class TimelineSection {
 
     textAnimationOut (el) {
         el.classList.remove('is-view')
+    }
+
+    onResize () {
+        if(window.innerWidth <= 768) {
+            this.timelineEnd = this.timelineSizes.endMobile
+        } else {
+            this.timelineEnd = this.timelineSizes.endDesktop
+        }
     }
 
 }

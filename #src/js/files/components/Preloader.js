@@ -196,12 +196,12 @@ class Preloader {
     }
 
     onResize () {
-        this.heroTitlesLine.revert()
-        this.heroTitlesParentLine.revert()
-        this.closeTitleLines.revert()
-        this.splitDateText.revert()
+        // this.heroTitlesLine.revert()
+        // this.heroTitlesParentLine.revert()
+        // this.closeTitleLines.revert()
+        // this.splitDateText.revert()
 
-        this.heroTitlesAnimation()
+        // this.heroTitlesAnimation()
     }
 
 }

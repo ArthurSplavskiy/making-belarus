@@ -22,6 +22,8 @@ body {
   cursor: none;
   background: $color-redbg;
   overscroll-behavior: none;
+  // overflow-y: auto!important;
+  // overflow-x: hidden!important;
 
   * {
     cursor: none;
