@@ -134,14 +134,14 @@
                         .native {
                             & > div {
                                 & > div {
-                                    transform: translate(0, -100%)!important;
+                                    transform: translate3d(0, -100%, 0)!important;
                                 }
                             }
                         }
                         .clone {
                             & > div {
                                 & > div {
-                                    transform: translate(0)!important;
+                                    transform: translate3d(0, 0, 0)!important;
                                 }
                             }
                         }
@@ -217,7 +217,7 @@
 
                     & > div {
                         & > div {
-                            transform: translate(0, 100%)!important;
+                            transform: translate3d(0, 100%, 0)!important;
                         }
                     }
                 }

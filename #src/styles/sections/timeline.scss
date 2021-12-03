@@ -245,7 +245,7 @@
                     object-fit: cover;
                     //will-change: transform;
                     //transform: scale(1.2);
-                    transition: transform 2s $easy-out-expo, clip-path 1.5s $easy-out-expo;
+                    //transition: transform 2s $easy-out-expo, clip-path 1.5s $easy-out-expo;
                 }
             }
 
@@ -315,7 +315,7 @@
 
                      // animation
                     //opacity: 0;
-                    transition: opacity 2s $easy-out-expo, transform 2s $easy-out-expo;
+                    //transition: opacity 2s $easy-out-expo, transform 2s $easy-out-expo;
                     //: opacity, transform;
 
                     // @include media('<=tablet') {

@@ -110,7 +110,7 @@
             animation-delay: 1s;
             animation-timing-function: cubic-bezier(.54,.01,.42,.96);
             animation-fill-mode: forwards;
-            transform: rotate(30deg);
+            transform: rotate(30deg) rotateZ(1deg);
           }
           .second-circle {
             transform-origin: 50% 50%;
@@ -119,7 +119,7 @@
             animation-delay: 0.8s;
             animation-timing-function: cubic-bezier(.54,.01,.42,.96);
             animation-fill-mode: forwards;
-            transform: rotate(-30deg);
+            transform: rotate(-30deg) rotateZ(1deg);
           }
           .third-circle {
             transform-origin: 50% 50%;
@@ -128,16 +128,16 @@
             animation-delay: 0.5s;
             animation-timing-function: cubic-bezier(.54,.01,.42,.96); // .68,1,.59,.99
             animation-fill-mode: forwards;
-            transform: rotate(30deg);
+            transform: rotate(30deg) rotateZ(1deg);
           }
           @keyframes leftRotate {
             to {
-                transform: rotate(360deg);
+                transform: rotate(360deg) rotateZ(1deg);
             }
           }
           @keyframes rightRotate {
             to {
-                transform: rotate(-360deg);
+                transform: rotate(-360deg) rotateZ(1deg);
             }
           }
         }

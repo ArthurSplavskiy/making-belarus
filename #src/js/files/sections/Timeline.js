@@ -116,9 +116,9 @@ class TimelineSection {
                 //     onComplete: () => parallaxImages.classList.remove('wc-transform')
                 // }, '<')
 
-                this.timeline.to(this.element, {
-                    duration: 0.02,
-                })
+                // this.timeline.to(this.element, {
+                //     duration: 0.02,
+                // })
 
                 this.timeline.to(this.element, {
                     duration: 0.1,
