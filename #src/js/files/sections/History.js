@@ -138,15 +138,15 @@ class HistorySection {
         /*
           * z-index
         */
-        // this.pinSpacer = this.element.parentElement
-        // let pinSpacerZindex = this.pinSpacer.style.zIndex
-        // this.timeline.to(this.pinSpacer, {
-        //     duration: 0,
-        //     zIndex: pinSpacerZindex
-        // })
-        // this.timeline.call(_ => {
-        //     this.pinSpacer.style.zIndex = -1;
-        // })
+        this.pinSpacer = this.element.parentElement
+        let pinSpacerZindex = this.pinSpacer.style.zIndex
+        this.timeline.to(this.pinSpacer, {
+            duration: 0,
+            zIndex: pinSpacerZindex
+        })
+        this.timeline.call(_ => {
+            this.pinSpacer.style.zIndex = -1;
+        })
 
     }
 

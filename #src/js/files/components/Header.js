@@ -7,7 +7,8 @@ class Header {
 
         this.cards = this.pageMenu.querySelectorAll('.page-menu__card')
         this.cardsTitle = this.pageMenu.querySelectorAll('.page-menu__card-title')
-        this.slider = this.pageMenu.querySelector('.page-menu__slider-wrapper')
+        this.slider = this.pageMenu.querySelector('.page-menu__slider')
+        this.sliderWrapper = this.slider.querySelector('.page-menu__slider-wrapper')
 
         this.split = new Split()
 
@@ -56,16 +57,16 @@ class Header {
             duration: 0.5,
             opacity: 1
         })
-        this.menuTimeline.fromTo(this.titleLines.chars, {
-            y: '100%',
-            opacity: 0
-        }, {
-            duration: 1,
-            ease: Power1.easeOut,
-            //stagger: 0.09,
-            y: '0%',
-            opacity: 1
-        }, '-=0.5')
+        // this.menuTimeline.fromTo(this.titleLines.chars, {
+        //     y: '100%',
+        //     opacity: 0
+        // }, {
+        //     duration: 1,
+        //     ease: Power1.easeOut,
+        //     //stagger: 0.09,
+        //     y: '0%',
+        //     opacity: 1
+        // }, '-=0.5')
         this.menuTimeline.pause()
 
         gsap.set(this.pageMenu, { y: '-100%' })
@@ -124,10 +125,10 @@ class Header {
             })
         })
         swiper.on('touchStart', () => {
-            this.slider.classList.add('grabbing')
+            this.sliderWrapper.classList.add('grabbing')
         })
         swiper.on('touchEnd', () => {
-            this.slider.classList.remove('grabbing')
+            this.sliderWrapper.classList.remove('grabbing')
         })
         
     }
@@ -137,7 +138,6 @@ class Header {
             type: "lines,words,chars",
             linesClass: "split-child"
         })
-        console.log(this.titleLines)
         // this.titleParentLines = this.split.splitText(this.cardsTitle, {
         //     type: "lines",
         //     linesClass: "split-parent"
@@ -145,26 +145,33 @@ class Header {
     }
 
     anchorsTransition (e) {
-        const timelineSection = 8000
-        const historySection = 30000
-        const incidentSection = 50000
-        const blogSection = 55000
+        let timelineSection = 8000
+        let historySection = 30000
+        let incidentSection = 50000
+        let blogSection = 55000
+
+        if(window.innerWidth <= 768) {
+            timelineSection = 4000
+            historySection = 8000
+            incidentSection = 12000
+            blogSection = 16000
+        }
 
         if(e.target.classList.contains('page-menu__card') || e.target.closest('.page-menu__card')) {
             const el = e.target.closest('.page-menu__card').dataset
 
             switch(el.link) {
                 case 's-timeline': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: timelineSection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: timelineSection} })
                     break;
                 case 's-history': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: historySection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: historySection} })
                     break;
                 case 's-incident': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: incidentSection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: incidentSection} })
                     break;
                 case 's-blog': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: blogSection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: blogSection} })
                     break;
             }
         }

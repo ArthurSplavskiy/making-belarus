@@ -7,11 +7,13 @@ class App {
         /*
           * Elements
         */
+
         this.$heroSection = document.querySelector('.hero-section')
         this.$timelineSection = document.querySelector('.timeline-section')
         this.$histotySection = document.querySelector('.history-section')
         this.$incidentSection = document.querySelector('.incident-section')
         this.$header = document.querySelector('header.header')
+        this.$blogSection = document.querySelector('.blog-section')
 
         /*
           * Components
@@ -37,6 +39,9 @@ class App {
         if (this.$incidentSection) {
             this.incidentSection = new IncidentSection(this.$incidentSection)
         }
+        if (this.$blogSection) {
+            this.blogSection = new BlogSection(this.$blogSection)
+        }
         
         /*
           * Functions
@@ -51,7 +56,7 @@ class App {
           * Elements
         */
         this.$preloader = document.querySelector('.preloader')
-        this.$blogSection = document.querySelector('.blog-section')
+        
         this.$preloaderCover = document.querySelector('.preloader-cover')
 
         /*
@@ -65,9 +70,7 @@ class App {
         preloaderCoverTimeline.fromTo(this.$preloaderCover, { autoAlpha: 1 }, { autoAlpha: 0 })
         preloaderCoverTimeline.call(_ => this.$preloaderCover.remove())
 
-        if (this.$blogSection) {
-            this.blogSection = new BlogSection(this.$blogSection)
-        }
+        //
         
         if (this.preloader) {
             this.preloader.init()
@@ -106,14 +109,11 @@ class App {
 
         ScrollTrigger.refresh(true)
         //ScrollTrigger.update()
-        ScrollTrigger.addEventListener("refreshInit", () => {
-            console.log('refresh START')
-        });
+        // ScrollTrigger.addEventListener("refreshInit", () => {
+        // });
         ScrollTrigger.addEventListener('refresh', () => {
-            console.log('refresh END')
+            ScrollTrigger.update()
         })
-        
-        console.log(window.pageYOffset)
     }
 
     addEventListeners () {

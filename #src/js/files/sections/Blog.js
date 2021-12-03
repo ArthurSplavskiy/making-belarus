@@ -27,8 +27,8 @@ class BlogSection {
     init () {
 
         this.scroll()
-        //this.onScreen()
-        this.descrAnimation()
+        this.onScreen()
+        //this.descrAnimation()
         this.footerLinksSplit()
     }
 
@@ -96,7 +96,7 @@ class BlogSection {
 
     onScreen () {
         this.observerImages = new Observer(this.images, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.75 })
-        this.observerDots = new Observer(this.dots, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.5 })
+        //this.observerDots = new Observer(this.dots, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.5 })
     }
 
     imgAnimationIn (el) {
@@ -132,7 +132,7 @@ class BlogSection {
         }, { threshold: 1 })
 
         this.descriptions.forEach(el => {
-            //this.observer.observe(el)
+            this.observer.observe(el)
         })
 
     }

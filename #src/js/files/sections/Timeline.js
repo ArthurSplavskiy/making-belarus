@@ -25,21 +25,21 @@ class TimelineSection {
 
     scroll () {
 
-        this.timeline = gsap.timeline({ defaults: {ease: 'none'} })
-
-        ScrollTrigger.create({
-            trigger: this.element,
-            animation: this.timeline,
-            start: self => self.previous().end,
-            end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
-            pin: true, 
-            scrub: 1,
-            invalidateOnRefresh: true
-        });
-
         ScrollTrigger.matchMedia({
 
             "(max-width: 768px)": () => {
+
+                this.timelineMob = gsap.timeline({ defaults: {ease: 'none'} })
+
+                ScrollTrigger.create({
+                    trigger: this.element,
+                    animation: this.timelineMob,
+                    start: () => 4000,
+                    end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
+                    pin: true, 
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                });
                 
                 gsap.set(this.elementScrollBg, {
                     xPercent: -50,
@@ -47,14 +47,14 @@ class TimelineSection {
                     rotate: '90deg'
                 })
 
-                this.timeline.to(this.element, {
+                this.timelineMob.to(this.element, {
                     duration: 0.1,
                     y: () => - (this.element.scrollHeight + 200),
                     onStart: () => this.element.classList.add('wc-transform'),
                     onComplete: () => this.element.classList.remove('wc-transform')
                 })
 
-                this.timeline.to(this.elementScrollBg, {
+                this.timelineMob.to(this.elementScrollBg, {
                     duration: 0.1,
                     y: 1000,
                     onStart: () => this.elementScrollBg.classList.add('wc-transform'),
@@ -64,6 +64,18 @@ class TimelineSection {
             },
 
             "(min-width: 769px)": () => {
+
+                this.timeline = gsap.timeline({ defaults: {ease: 'none'} })
+
+                ScrollTrigger.create({
+                    trigger: this.element,
+                    animation: this.timeline,
+                    start: () => 8000,
+                    end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
+                    pin: true, 
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                });
 
                 gsap.set(this.elementScrollBg, {
                     xPercent: 0,
@@ -113,6 +125,19 @@ class TimelineSection {
                     yPercent: -100,
                     onStart: () => this.element.classList.add('wc-transform'),
                     onComplete: () => this.element.classList.remove('wc-transform')
+                })
+
+                /*
+                    * z-index
+                */
+                this.pinSpacer = this.element.parentElement
+                let pinSpacerZindex = this.pinSpacer.style.zIndex
+                this.timeline.to('.pin-spacer', {
+                    duration: 0,
+                    zIndex: pinSpacerZindex
+                })
+                this.timeline.call(_ => {
+                    this.pinSpacer.style.zIndex = -1;
                 })
 
             }

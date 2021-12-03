@@ -284,7 +284,8 @@ class Header {
 
         this.cards = this.pageMenu.querySelectorAll('.page-menu__card')
         this.cardsTitle = this.pageMenu.querySelectorAll('.page-menu__card-title')
-        this.slider = this.pageMenu.querySelector('.page-menu__slider-wrapper')
+        this.slider = this.pageMenu.querySelector('.page-menu__slider')
+        this.sliderWrapper = this.slider.querySelector('.page-menu__slider-wrapper')
 
         this.split = new Split()
 
@@ -333,16 +334,16 @@ class Header {
             duration: 0.5,
             opacity: 1
         })
-        this.menuTimeline.fromTo(this.titleLines.chars, {
-            y: '100%',
-            opacity: 0
-        }, {
-            duration: 1,
-            ease: Power1.easeOut,
-            //stagger: 0.09,
-            y: '0%',
-            opacity: 1
-        }, '-=0.5')
+        // this.menuTimeline.fromTo(this.titleLines.chars, {
+        //     y: '100%',
+        //     opacity: 0
+        // }, {
+        //     duration: 1,
+        //     ease: Power1.easeOut,
+        //     //stagger: 0.09,
+        //     y: '0%',
+        //     opacity: 1
+        // }, '-=0.5')
         this.menuTimeline.pause()
 
         gsap.set(this.pageMenu, { y: '-100%' })
@@ -401,10 +402,10 @@ class Header {
             })
         })
         swiper.on('touchStart', () => {
-            this.slider.classList.add('grabbing')
+            this.sliderWrapper.classList.add('grabbing')
         })
         swiper.on('touchEnd', () => {
-            this.slider.classList.remove('grabbing')
+            this.sliderWrapper.classList.remove('grabbing')
         })
         
     }
@@ -414,7 +415,6 @@ class Header {
             type: "lines,words,chars",
             linesClass: "split-child"
         })
-        console.log(this.titleLines)
         // this.titleParentLines = this.split.splitText(this.cardsTitle, {
         //     type: "lines",
         //     linesClass: "split-parent"
@@ -422,26 +422,33 @@ class Header {
     }
 
     anchorsTransition (e) {
-        const timelineSection = 8000
-        const historySection = 30000
-        const incidentSection = 50000
-        const blogSection = 55000
+        let timelineSection = 8000
+        let historySection = 30000
+        let incidentSection = 50000
+        let blogSection = 55000
+
+        if(window.innerWidth <= 768) {
+            timelineSection = 4000
+            historySection = 8000
+            incidentSection = 12000
+            blogSection = 16000
+        }
 
         if(e.target.classList.contains('page-menu__card') || e.target.closest('.page-menu__card')) {
             const el = e.target.closest('.page-menu__card').dataset
 
             switch(el.link) {
                 case 's-timeline': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: timelineSection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: timelineSection} })
                     break;
                 case 's-history': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: historySection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: historySection} })
                     break;
                 case 's-incident': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: incidentSection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: incidentSection} })
                     break;
                 case 's-blog': 
-                    gsap.to(window, { duration: 1, scrollTo: {y: blogSection} })
+                    gsap.to(window, { duration: 0.2, scrollTo: {y: blogSection} })
                     break;
             }
         }
@@ -631,24 +638,21 @@ class Preloader {
             this.timelineClose.call(_ => {
                 this.element.remove()
 
-                body_lock_remove(0)
-
                 gsap.to(this.heroTitlesLine.lines, {
                     duration: 1,
                     ease: Power1.easeOut,
-                    stagger: 0.09,
+                    stagger: 0.1,
                     y: '0%',
                     opacity: 1
                 })
 
                 gsap.to(this.heroDescriptions, {
-                    duration: 1,
+                    duration: 2,
                     ease: Power1.easeOut,
-                    opacity: 1,
-                    y: 0,
-                    scale: 1
+                    autoAlpha: 1
                 })
 
+                body_lock_remove(0)
                 this.burger.classList.remove('disable')
             })
         }
@@ -670,7 +674,7 @@ class Preloader {
             opacity: 0
         })
         gsap.set(this.heroDescriptions, {
-            opacity: 0
+            autoAlpha: 0
         })
     }
 
@@ -736,28 +740,28 @@ class HeroSection {
             ease: Power1.easeIn,
             duration: 2,
             opacity: 0.2,
-            // onStart: () => this.heroFirstLines[0].classList.add('wc-transform'),
-            // onComplete: () => this.heroFirstLines[0].classList.remove('wc-transform')
+            onStart: () => this.heroFirstLines[0].classList.add('wc-transform'),
+            onComplete: () => this.heroFirstLines[0].classList.remove('wc-transform')
         }, '>')
         this.timeline.to(this.heroFirstLines[1], {
             x: () => ((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth,
             ease: Power1.easeIn,
             duration: 2,
             opacity: 0.2,
-            // onStart: () => this.heroFirstLines[1].classList.add('wc-transform'),
-            // onComplete: () => this.heroFirstLines[1].classList.remove('wc-transform')
+            onStart: () => this.heroFirstLines[1].classList.add('wc-transform'),
+            onComplete: () => this.heroFirstLines[1].classList.remove('wc-transform')
         }, '<')
         this.timeline.to(this.heroFirstLines[2], {
             x: () => - (((window.innerWidth - this.heroFirstLines[1].clientWidth) / 2) + this.heroFirstLines[1].clientWidth),
             ease: Power1.easeIn,
             duration: 2,
             opacity: 0.2,
-            // onStart: () => this.heroFirstLines[2].classList.add('wc-transform'),
-            // onComplete: () => this.heroFirstLines[2].classList.remove('wc-transform')
+            onStart: () => this.heroFirstLines[2].classList.add('wc-transform'),
+            onComplete: () => this.heroFirstLines[2].classList.remove('wc-transform')
         }, '<')
 
         this.timeline.fromTo(this.heroMap.children[0], {
-            scale: 0,
+            scale: 0.0001,
             opacity: 0.4
         }, {
             scale: 1,
@@ -769,8 +773,8 @@ class HeroSection {
         this.timeline.to(this.element, {
             duration: 2,
             y: () => - (window.innerHeight),
-            // onStart: () => this.element.classList.add('wc-transform'),
-            // onComplete: () => this.element.classList.remove('wc-transform')
+            onStart: () => this.element.classList.add('wc-transform'),
+            onComplete: () => this.element.classList.remove('wc-transform')
         })
 
         this.timeline.fromTo(this.timelineSection, {
@@ -778,19 +782,18 @@ class HeroSection {
         }, {
             filter: 'brightness(1)'
         }, '<')
-
         /*
           * z-index
         */
-        // this.pinSpacer = this.element.parentElement
-        // let pinSpacerZindex = this.pinSpacer.style.zIndex
-        // this.timeline.to('.pin-spacer', {
-        //     duration: 0,
-        //     zIndex: pinSpacerZindex
-        // })
-        // this.timeline.call(_ => {
-        //     this.pinSpacer.style.zIndex = -1;
-        // })
+        this.pinSpacer = this.element.parentElement
+        let pinSpacerZindex = this.pinSpacer.style.zIndex
+        this.timeline.to('.pin-spacer', {
+            duration: 0,
+            zIndex: pinSpacerZindex
+        })
+        this.timeline.call(_ => {
+            this.pinSpacer.style.zIndex = -1;
+        })
 
     }
 
@@ -830,21 +833,21 @@ class TimelineSection {
 
     scroll () {
 
-        this.timeline = gsap.timeline({ defaults: {ease: 'none'} })
-
-        ScrollTrigger.create({
-            trigger: this.element,
-            animation: this.timeline,
-            start: self => self.previous().end,
-            end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
-            pin: true, 
-            scrub: 1,
-            invalidateOnRefresh: true
-        });
-
         ScrollTrigger.matchMedia({
 
             "(max-width: 768px)": () => {
+
+                this.timelineMob = gsap.timeline({ defaults: {ease: 'none'} })
+
+                ScrollTrigger.create({
+                    trigger: this.element,
+                    animation: this.timelineMob,
+                    start: () => 4000,
+                    end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
+                    pin: true, 
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                });
                 
                 gsap.set(this.elementScrollBg, {
                     xPercent: -50,
@@ -852,14 +855,14 @@ class TimelineSection {
                     rotate: '90deg'
                 })
 
-                this.timeline.to(this.element, {
+                this.timelineMob.to(this.element, {
                     duration: 0.1,
                     y: () => - (this.element.scrollHeight + 200),
                     onStart: () => this.element.classList.add('wc-transform'),
                     onComplete: () => this.element.classList.remove('wc-transform')
                 })
 
-                this.timeline.to(this.elementScrollBg, {
+                this.timelineMob.to(this.elementScrollBg, {
                     duration: 0.1,
                     y: 1000,
                     onStart: () => this.elementScrollBg.classList.add('wc-transform'),
@@ -869,6 +872,18 @@ class TimelineSection {
             },
 
             "(min-width: 769px)": () => {
+
+                this.timeline = gsap.timeline({ defaults: {ease: 'none'} })
+
+                ScrollTrigger.create({
+                    trigger: this.element,
+                    animation: this.timeline,
+                    start: () => 8000,
+                    end: () => `${this.timelineEnd || this.timelineSizes.endDesktop}px 100%`,
+                    pin: true, 
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                });
 
                 gsap.set(this.elementScrollBg, {
                     xPercent: 0,
@@ -918,6 +933,19 @@ class TimelineSection {
                     yPercent: -100,
                     onStart: () => this.element.classList.add('wc-transform'),
                     onComplete: () => this.element.classList.remove('wc-transform')
+                })
+
+                /*
+                    * z-index
+                */
+                this.pinSpacer = this.element.parentElement
+                let pinSpacerZindex = this.pinSpacer.style.zIndex
+                this.timeline.to('.pin-spacer', {
+                    duration: 0,
+                    zIndex: pinSpacerZindex
+                })
+                this.timeline.call(_ => {
+                    this.pinSpacer.style.zIndex = -1;
                 })
 
             }
@@ -1100,15 +1128,15 @@ class HistorySection {
         /*
           * z-index
         */
-        // this.pinSpacer = this.element.parentElement
-        // let pinSpacerZindex = this.pinSpacer.style.zIndex
-        // this.timeline.to(this.pinSpacer, {
-        //     duration: 0,
-        //     zIndex: pinSpacerZindex
-        // })
-        // this.timeline.call(_ => {
-        //     this.pinSpacer.style.zIndex = -1;
-        // })
+        this.pinSpacer = this.element.parentElement
+        let pinSpacerZindex = this.pinSpacer.style.zIndex
+        this.timeline.to(this.pinSpacer, {
+            duration: 0,
+            zIndex: pinSpacerZindex
+        })
+        this.timeline.call(_ => {
+            this.pinSpacer.style.zIndex = -1;
+        })
 
     }
 
@@ -1154,7 +1182,7 @@ class IncidentSection {
 
         this.timeline = gsap.timeline({ defaults: {ease: 'none' } })
 
-        this.timelineST = ScrollTrigger.create({
+        ScrollTrigger.create({
             trigger: this.element,
             animation: this.timeline,
             start: self => self.previous().end,
@@ -1201,15 +1229,15 @@ class IncidentSection {
         /*
           * z-index
         */
-        // this.pinSpacer = this.element.parentElement
-        // let pinSpacerZindex = this.pinSpacer.style.zIndex
-        // this.timeline.to(this.pinSpacer, {
-        //     duration: 0,
-        //     zIndex: pinSpacerZindex
-        // })
-        // this.timeline.call(_ => {
-        //     this.pinSpacer.style.zIndex = -1;
-        // })
+        this.pinSpacer = this.element.parentElement
+        let pinSpacerZindex = this.pinSpacer.style.zIndex
+        this.timeline.to(this.pinSpacer, {
+            duration: 0,
+            zIndex: pinSpacerZindex
+        })
+        this.timeline.call(_ => {
+            this.pinSpacer.style.zIndex = -1;
+        })
 
     }
 
@@ -1272,8 +1300,8 @@ class BlogSection {
     init () {
 
         this.scroll()
-        //this.onScreen()
-        this.descrAnimation()
+        this.onScreen()
+        //this.descrAnimation()
         this.footerLinksSplit()
     }
 
@@ -1341,7 +1369,7 @@ class BlogSection {
 
     onScreen () {
         this.observerImages = new Observer(this.images, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.75 })
-        this.observerDots = new Observer(this.dots, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.5 })
+        //this.observerDots = new Observer(this.dots, this.imgAnimationIn, this.imgAnimationOut, { threshold: 0.5 })
     }
 
     imgAnimationIn (el) {
@@ -1377,7 +1405,7 @@ class BlogSection {
         }, { threshold: 1 })
 
         this.descriptions.forEach(el => {
-            //this.observer.observe(el)
+            this.observer.observe(el)
         })
 
     }
@@ -1444,11 +1472,13 @@ class App {
         /*
           * Elements
         */
+
         this.$heroSection = document.querySelector('.hero-section')
         this.$timelineSection = document.querySelector('.timeline-section')
         this.$histotySection = document.querySelector('.history-section')
         this.$incidentSection = document.querySelector('.incident-section')
         this.$header = document.querySelector('header.header')
+        this.$blogSection = document.querySelector('.blog-section')
 
         /*
           * Components
@@ -1474,6 +1504,9 @@ class App {
         if (this.$incidentSection) {
             this.incidentSection = new IncidentSection(this.$incidentSection)
         }
+        if (this.$blogSection) {
+            this.blogSection = new BlogSection(this.$blogSection)
+        }
         
         /*
           * Functions
@@ -1488,7 +1521,7 @@ class App {
           * Elements
         */
         this.$preloader = document.querySelector('.preloader')
-        this.$blogSection = document.querySelector('.blog-section')
+        
         this.$preloaderCover = document.querySelector('.preloader-cover')
 
         /*
@@ -1502,9 +1535,7 @@ class App {
         preloaderCoverTimeline.fromTo(this.$preloaderCover, { autoAlpha: 1 }, { autoAlpha: 0 })
         preloaderCoverTimeline.call(_ => this.$preloaderCover.remove())
 
-        if (this.$blogSection) {
-            this.blogSection = new BlogSection(this.$blogSection)
-        }
+        //
         
         if (this.preloader) {
             this.preloader.init()
@@ -1543,14 +1574,11 @@ class App {
 
         ScrollTrigger.refresh(true)
         //ScrollTrigger.update()
-        ScrollTrigger.addEventListener("refreshInit", () => {
-            console.log('refresh START')
-        });
+        // ScrollTrigger.addEventListener("refreshInit", () => {
+        // });
         ScrollTrigger.addEventListener('refresh', () => {
-            console.log('refresh END')
+            ScrollTrigger.update()
         })
-        
-        console.log(window.pageYOffset)
     }
 
     addEventListeners () {

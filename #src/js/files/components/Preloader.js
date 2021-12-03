@@ -152,24 +152,21 @@ class Preloader {
             this.timelineClose.call(_ => {
                 this.element.remove()
 
-                body_lock_remove(0)
-
                 gsap.to(this.heroTitlesLine.lines, {
                     duration: 1,
                     ease: Power1.easeOut,
-                    stagger: 0.09,
+                    stagger: 0.1,
                     y: '0%',
                     opacity: 1
                 })
 
                 gsap.to(this.heroDescriptions, {
-                    duration: 1,
+                    duration: 2,
                     ease: Power1.easeOut,
-                    opacity: 1,
-                    y: 0,
-                    scale: 1
+                    autoAlpha: 1
                 })
 
+                body_lock_remove(0)
                 this.burger.classList.remove('disable')
             })
         }
@@ -191,7 +188,7 @@ class Preloader {
             opacity: 0
         })
         gsap.set(this.heroDescriptions, {
-            opacity: 0
+            autoAlpha: 0
         })
     }
 
